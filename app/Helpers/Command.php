@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class Service
+class Command
 {
     use DispatchesJobs,
         RespondWithJsonTrait,

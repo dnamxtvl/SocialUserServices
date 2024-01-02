@@ -6,18 +6,19 @@ use App\Domains\Auth\DTOs\SaveUserLoginHistoryDTO;
 use App\Domains\Auth\Jobs\LoginJob;
 use App\Domains\Auth\Jobs\SaveUserLoginHistoryJob;
 use App\Features\DTOs\LoginParamsDTO;
-use App\Helpers\Service;
+use App\Helpers\Command;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-class LoginFeature extends Service
+class LoginFeature extends Command
 {
     public function __construct(
         private readonly LoginParamsDTO $loginParams,
         private readonly ?string $ip,
         private readonly string $device,
-    ) {}
+    ) {
+    }
 
     public function handle(): JsonResponse
     {
@@ -37,9 +38,11 @@ class LoginFeature extends Service
             $this->dispatchSync(new SaveUserLoginHistoryJob(saveUserLoginHistoryDTO: $saveUserLoginHistory));
 
             DB::commit();
+
             return $this->respondWithJson(content: $loginJobData->toArray());
         } catch (Throwable $exception) {
             DB::rollBack();
+
             return $this->respondWithJsonError(e: $exception);
         }
     }

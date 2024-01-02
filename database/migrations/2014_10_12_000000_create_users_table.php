@@ -24,13 +24,16 @@ return new class extends Migration
             $table->integer('current_city_id')->nullable()->comment('Nơi ở hiện tại')->index();
             $table->integer('relationship_status')->nullable()->comment('Tình trạng mối quan hệ')->index();
             $table->tinyInteger('gender')->comment('0:nữ, 1:nam, 2:khác')->index();
-            $table->timestamp('birthday')->nullable();
+            $table->integer('day_of_birth')->nullable();
+            $table->integer('month_of_birth')->nullable();
+            $table->integer('year_of_birth')->nullable();
             $table->string('about_me')->nullable();
             $table->string('password');
             $table->timestamp('latest_login')->nullable();
             $table->string('latest_ip_login')->nullable();
             $table->timestamp('last_activity_at')->nullable()->comment('Thời gian online cuối');
             $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status_active')->default(0)->comment('Trạng thái hooạt động');
             $table->index(['first_name', 'last_name']);
             $table->index(['from_city_id', 'current_city_id']);
             $table->rememberToken();

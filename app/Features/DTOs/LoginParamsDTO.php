@@ -8,7 +8,8 @@ class LoginParamsDTO
         private readonly string $email,
         private readonly string $password,
         private readonly bool $rememberMe = false,
-    ) {}
+    ) {
+    }
 
     public function getEmail(): string
     {

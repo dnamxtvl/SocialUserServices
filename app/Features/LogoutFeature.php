@@ -2,11 +2,11 @@
 
 namespace App\Features;
 
-use App\Helpers\Service;
+use App\Helpers\Command;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class LogoutFeature extends Service
+class LogoutFeature extends Command
 {
     public function handle(): JsonResponse
     {
