@@ -36,6 +36,8 @@ return new class extends Migration
             $table->tinyInteger('status_active')->default(0)->comment('Trạng thái hooạt động');
             $table->index(['first_name', 'last_name']);
             $table->index(['from_city_id', 'current_city_id']);
+            $table->index(['status', 'status_active']);
+            $table->index(['day_of_birth', 'month_of_birth', 'year_of_birth']);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

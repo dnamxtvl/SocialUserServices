@@ -9,4 +9,5 @@ enum UserStatusEnum: int
     case BLOCKED_PROFILE = 3;
     case BLOCK_MESSAGE = 4;
     case CLOSE_ACCOUNT = 5;
+    case NOT_VERIFIED = 6;
 }

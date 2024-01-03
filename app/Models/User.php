@@ -8,8 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
+/**
+ * @property mixed|string $last_name
+ * @property mixed|string $first_name
+ * @property mixed|string $email
+ * @property mixed|string $password
+ * @property int|mixed $day_of_birth
+ * @property int|mixed $month_of_birth
+ * @property int|mixed $year_of_birth
+ * @property int|mixed $gender
+ * @property int|mixed $status
+ */
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 

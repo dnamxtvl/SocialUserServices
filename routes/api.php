@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/register-user', [AuthController::class, 'register'])->name('auth.register');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
 
-Route::group(['middleware' => 'auth:api'], function () {
+    return response()->json([], ResponseAlias::HTTP_OK);
+})->middleware(['auth:api', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return response()->json([], ResponseAlias::HTTP_OK);
+})->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');
+
+Route::group(['middleware' => ['auth:api', 'verified']], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('/test', function (Request $request) {
         return $request->user();

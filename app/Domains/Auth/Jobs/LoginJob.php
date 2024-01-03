@@ -41,7 +41,7 @@ class LoginJob
         $tokenResult = $user->createToken('API Token');
         $token = $tokenResult->token;
         if ($this->rememberMe) {
-            $token->expires_at = Carbon::now()->addWeek();
+            $token->expires_at = now()->addWeek();
             $token->save();
         }
 
