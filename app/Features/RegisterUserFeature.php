@@ -7,10 +7,7 @@ use App\Domains\User\DTOs\RegisterUserParamsDTO;
 use App\Domains\User\Jobs\SaveUserRegisterJob;
 use App\Helpers\Command;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 use Throwable;
-use Illuminate\Auth\Events\Registered;
 
 class RegisterUserFeature extends Command
 {
@@ -22,7 +19,7 @@ class RegisterUserFeature extends Command
     public function handle(): JsonResponse
     {
         try {
-            $newUser = $this->dispatchSync(new SaveUserRegisterJob(
+            $this->dispatchSync(new SaveUserRegisterJob(
                 registerUserParams: $this->registerUserParams
             ));
 
@@ -31,7 +28,6 @@ class RegisterUserFeature extends Command
                 password: $this->registerUserParams->getPassword(),
                 rememberMe: false
             ));
-            event(new Registered($newUser));
 
             return $this->respondWithJson(content: $loginJobData->toArray());
         } catch (Throwable $exception) {
