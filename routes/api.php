@@ -24,6 +24,11 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
     return response()->json([], ResponseAlias::HTTP_OK);
 })->middleware(['auth:api', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return response()->json([], ResponseAlias::HTTP_OK);
+})->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('auth.logout');
 
