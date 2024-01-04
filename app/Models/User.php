@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Domains\Auth\Notification\VerifyEmailRegister;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,5 +60,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function userLoginHistories()
     {
         return $this->hasMany(UserLoginHistory::class);
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new VerifyEmailRegister);
     }
 }

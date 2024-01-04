@@ -30,8 +30,9 @@ Route::post('/email/verification-notification', function (Request $request) {
     return response()->json([], ResponseAlias::HTTP_OK);
 })->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');
 
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('auth.logout');
+
 Route::group(['middleware' => ['auth:api', 'verified']], function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('/test', function (Request $request) {
         return $request->user();
     });
