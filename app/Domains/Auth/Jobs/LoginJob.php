@@ -5,8 +5,11 @@ namespace App\Domains\Auth\Jobs;
 use App\Domains\Auth\DTOs\UserLoginResponseDataDTO;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Horizon\Exceptions\ForbiddenException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginJob
 {
@@ -38,6 +41,12 @@ class LoginJob
         }
 
         $user = Auth::user();
+
+        if (! $user->hasVerifiedEmail()) {
+            event(new Registered($user));
+            throw new ForbiddenException(statusCode: Response::HTTP_FORBIDDEN, message: 'Tài khoản chưa được xác thực, chúng tôi đã gửi email xác thực đến tài khoản của bạn!');
+        }
+
         $tokenResult = $user->createToken('API Token');
         $token = $tokenResult->token;
         if ($this->rememberMe) {
