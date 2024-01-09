@@ -2,15 +2,43 @@
 
 namespace App\Data\Repository;
 
+use App\Data\Pipelines\User\EmailFilter;
 use App\Domains\User\DTOs\RegisterUserParamsDTO;
 use App\Domains\User\Enums\UserStatusEnum;
 use App\Domains\User\Repository\UserRepositoryInterface;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
 {
+    public function __construct(
+        private readonly User $user
+    ) {
+    }
+
+    public function getQuery(array $columnSelects = [], array $filters = []): Builder
+    {
+        $query = $this->user->query();
+        if (count($columnSelects)) {
+            $query->select($columnSelects);
+        }
+
+        return app(Pipeline::class)
+            ->send($query)
+            ->through([
+                new EmailFilter(filters: $filters),
+            ])
+            ->thenReturn();
+    }
+
+    public function findById(string $userId): ?Model
+    {
+        return $this->user->query()->find(id: $userId);
+    }
+
     public function save(RegisterUserParamsDTO $registerUserParams): Model
     {
         $user = new User();

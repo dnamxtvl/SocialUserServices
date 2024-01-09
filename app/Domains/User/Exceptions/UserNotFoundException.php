@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Auth\Exceptions;
+namespace App\Domains\User\Exceptions;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

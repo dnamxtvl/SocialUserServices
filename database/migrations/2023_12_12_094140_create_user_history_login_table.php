@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('device')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->integer('user_id');
+            $table->uuid('user_id')->index();
             $table->timestamps();
         });
     }

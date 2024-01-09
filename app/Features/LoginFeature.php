@@ -3,10 +3,11 @@
 namespace App\Features;
 
 use App\Domains\Auth\DTOs\SaveUserLoginHistoryDTO;
-use App\Domains\Auth\Jobs\LoginJob;
+use App\Domains\Auth\Exceptions\EmailNotVerifyException;
 use App\Domains\Auth\Jobs\SaveUserLoginHistoryJob;
 use App\Features\DTOs\LoginParamsDTO;
 use App\Helpers\Command;
+use App\Operations\LoginOperation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -24,14 +25,14 @@ class LoginFeature extends Command
     {
         DB::beginTransaction();
         try {
-            $loginJobData = $this->dispatchSync(new LoginJob(
+            $loginJobData = $this->dispatchSync(new LoginOperation(
                 email: $this->loginParams->getEmail(),
                 password: $this->loginParams->getPassword(),
                 rememberMe: $this->loginParams->getRememberMe()
             ));
 
             $saveUserLoginHistory = new SaveUserLoginHistoryDTO(
-                userId: $loginJobData->getUser()->id,
+                user: $loginJobData->getUser(),
                 ip: $this->ip,
                 device: $this->device,
             );
@@ -41,7 +42,11 @@ class LoginFeature extends Command
 
             return $this->respondWithJson(content: $loginJobData->toArray());
         } catch (Throwable $exception) {
-            DB::rollBack();
+            if ($exception instanceof EmailNotVerifyException) {
+                DB::commit();
+            } else {
+                DB::rollBack();
+            }
 
             return $this->respondWithJsonError(e: $exception);
         }

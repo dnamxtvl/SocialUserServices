@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,18 +15,11 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 |
 */
 
-Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:6,1')->name('auth.login');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/register-user', [AuthController::class, 'register'])->name('auth.register');
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-
-    return response()->json([], ResponseAlias::HTTP_OK);
-})->middleware(['auth:api', 'signed'])->name('verification.verify');
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-
-    return response()->json([], ResponseAlias::HTTP_OK);
-})->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');
+Route::post('/email/verify-register/', [AuthController::class, 'verifyOTPAfterRegister'])->name('auth.verifyOTPAfterRegister');
+Route::post('/email/verify-login/', [AuthController::class, 'verifyOTPAfterLogin'])->name('auth.verifyOTPAfterLogin');
+Route::get('/email/verification-notification/{userId}', [AuthController::class, 'resendVerificationNotification'])->middleware(['throttle:6,1'])->name('auth.resendVerificationNotification');
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('auth.logout');
 

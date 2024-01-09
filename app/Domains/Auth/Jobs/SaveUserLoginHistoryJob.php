@@ -4,7 +4,7 @@ namespace App\Domains\Auth\Jobs;
 
 use App\Domains\Auth\DTOs\SaveUserLoginHistoryDTO;
 use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class SaveUserLoginHistoryJob
 {
@@ -15,15 +15,17 @@ class SaveUserLoginHistoryJob
      */
     public function __construct(
         private readonly SaveUserLoginHistoryDTO $saveUserLoginHistoryDTO
-    ) {}
+    ) {
+    }
 
     public function handle(UserLoginHistoryRepositoryInterface $userLoginHistoryRepository): void
     {
-        $currentUser = Auth::user();
+        $currentUser = $this->saveUserLoginHistoryDTO->getUser();
 
+        /** @var User $currentUser */
         if ($currentUser->latest_ip_login != $this->saveUserLoginHistoryDTO->getIp() ||
-            ! $currentUser->userLoginHistories->count()) {
-                $userLoginHistoryRepository->save(saveUserLoginHistoryDTO: $this->saveUserLoginHistoryDTO);
+            ! $currentUser->userLoginHistories()->count()) {
+            $userLoginHistoryRepository->save(saveUserLoginHistoryDTO: $this->saveUserLoginHistoryDTO);
         }
 
         $currentUser->latest_ip_login = $this->saveUserLoginHistoryDTO->getIp();
