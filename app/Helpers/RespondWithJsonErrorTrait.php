@@ -2,9 +2,9 @@
 
 namespace App\Helpers;
 
-use Throwable;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 trait RespondWithJsonErrorTrait
 {
@@ -12,8 +12,7 @@ trait RespondWithJsonErrorTrait
         Throwable $e,
         array $headers = [],
         int $options = 0
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $code = $e->getCode() ?? Response::HTTP_BAD_REQUEST;
         $message = $e->getMessage() ?? 'An error occurred!';
         $status = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : Response::HTTP_INTERNAL_SERVER_ERROR;

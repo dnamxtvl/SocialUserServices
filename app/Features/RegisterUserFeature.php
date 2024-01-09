@@ -2,11 +2,12 @@
 
 namespace App\Features;
 
-use App\Domains\Auth\Jobs\LoginJob;
+use App\Domains\Auth\Jobs\CreateEmailVerifyOTPJob;
 use App\Domains\User\DTOs\RegisterUserParamsDTO;
 use App\Domains\User\Jobs\SaveUserRegisterJob;
 use App\Helpers\Command;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class RegisterUserFeature extends Command
@@ -18,19 +19,20 @@ class RegisterUserFeature extends Command
 
     public function handle(): JsonResponse
     {
+        DB::beginTransaction();
         try {
-            $this->dispatchSync(new SaveUserRegisterJob(
+            $newUser = $this->dispatchSync(new SaveUserRegisterJob(
                 registerUserParams: $this->registerUserParams
             ));
 
-            $loginJobData = $this->dispatchSync(new LoginJob(
-                email: $this->registerUserParams->getEmail(),
-                password: $this->registerUserParams->getPassword(),
-                rememberMe: false
-            ));
+            $this->dispatchSync(new CreateEmailVerifyOTPJob(user: $newUser));
 
-            return $this->respondWithJson(content: $loginJobData->toArray());
+            DB::commit();
+
+            return $this->respondWithJson(content: $newUser->toArray());
         } catch (Throwable $exception) {
+            DB::rollBack();
+
             return $this->respondWithJsonError(e: $exception);
         }
     }

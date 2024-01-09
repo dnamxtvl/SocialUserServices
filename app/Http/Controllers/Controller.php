@@ -10,5 +10,5 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, RespondWithJsonTrait;
+    use AuthorizesRequests, DispatchesJobs, RespondWithJsonTrait, ValidatesRequests;
 }

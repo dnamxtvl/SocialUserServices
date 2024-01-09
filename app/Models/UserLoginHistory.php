@@ -15,5 +15,6 @@ class UserLoginHistory extends Model
     use HasFactory;
 
     protected $table = 'user_history_login';
+
     protected $primaryKey = 'id';
 }

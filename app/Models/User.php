@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Domains\Auth\Notification\VerifyEmailRegister;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticate;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * @property mixed|string $last_name
@@ -21,10 +23,15 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  * @property int|mixed $year_of_birth
  * @property int|mixed $gender
  * @property int|mixed $status
+ * @property mixed $id
+ * @property Carbon|mixed $email_verified_at
+ * @property mixed $latest_ip_login
+ * @property mixed $userLoginHistories
+ * @property Carbon|mixed $latest_login
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticate implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -57,13 +64,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function userLoginHistories()
+    public function userLoginHistories(): HasMany
     {
         return $this->hasMany(UserLoginHistory::class);
     }
 
-    public function sendEmailVerificationNotification(): void
+    public function sendEmailVerifyNotification(string $verifyCode): void
     {
-        $this->notify(new VerifyEmailRegister);
+        $this->notify(new VerifyEmailRegister(verifyCode: $verifyCode));
+    }
+
+    public function emailVerifyOTPs(): HasMany
+    {
+        return $this->hasMany(EmailVerifyOTO::class);
     }
 }

@@ -17,9 +17,9 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|max:255',
-            'password' => 'required|string|min:6|max:255',
-            'remember_me' => 'boolean'
+            'email' => 'required|string|email|min:'.config('validation.email.min_length').'|max:'.config('validation.email.max_length'),
+            'password' => 'required|string|min:'.config('validation.password.min_length').'|max:'.config('validation.password.max_length'),
+            'remember_me' => 'boolean',
         ];
     }
 
@@ -28,12 +28,13 @@ class LoginRequest extends FormRequest
         return [
             'email.required' => 'Email không được để trống',
             'email.email' => 'Email không đúng định dạng',
-            'email.max' => 'Email không được quá 255 ký tự',
+            'email.max' => 'Email không vượt quá '.config('validation.email.max_length').' ký tự',
+            'email.min' => 'Email không ít hơn '.config('validation.email.min_length').' ký tự',
             'password.required' => 'Mật khẩu không được để trống',
             'password.string' => 'Mật khẩu phải là chuỗi',
-            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự',
-            'password.max' => 'Mật khẩu không được quá 255 ký tự',
-            'remember_me.boolean' => 'Remember me phải là boolean'
+            'password.min' => 'Mật khẩu không được ít hơn '.config('validation.password.min_length').' ký tự',
+            'password.max' => 'Mật khẩu không được quá '.config('validation.password.max_length').' ký tự',
+            'remember_me.boolean' => 'Remember me phải là boolean',
         ];
     }
 }

@@ -16,7 +16,8 @@ class UserLoginResponseDataDTO
         private readonly ?Model $user,
         private readonly string $token,
         private readonly Carbon $expiresAt,
-    ) {}
+    ) {
+    }
 
     public function getUser(): ?Model
     {

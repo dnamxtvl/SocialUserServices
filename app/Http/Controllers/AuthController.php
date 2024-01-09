@@ -8,8 +8,13 @@ use App\Features\DTOs\LoginParamsDTO;
 use App\Features\LoginFeature;
 use App\Features\LogoutFeature;
 use App\Features\RegisterUserFeature;
+use App\Features\ResendVerificationNotificationFeature;
+use App\Features\VerifyOTPAfterLoginFeature;
+use App\Features\VerifyOTPAfterRegisterFeature;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\VerifyEmailOTPAfterLoginRequest;
+use App\Http\Requests\VerifyEmailOTPRequest;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
@@ -43,6 +48,26 @@ class AuthController extends Controller
         );
 
         return $this->dispatchSync(new RegisterUserFeature(registerUserParams: $registerUserParams));
+    }
+
+    public function verifyOTPAfterRegister(VerifyEmailOTPRequest $request): JsonResponse
+    {
+        return $this->dispatchSync(new VerifyOTPAfterRegisterFeature(
+            userId: $request->input('user_id'),
+            code: $request->input('verify_code')
+        ));
+    }
+
+    public function verifyOTPAfterLogin(VerifyEmailOTPAfterLoginRequest $request): JsonResponse
+    {
+        return $this->dispatchSync(new VerifyOTPAfterLoginFeature(
+            email: $request->input('email'), code: $request->input('code')
+        ));
+    }
+
+    public function resendVerificationNotification(string $userId): JsonResponse
+    {
+        return $this->dispatchSync(new ResendVerificationNotificationFeature(userId: $userId));
     }
 
     public function logout(): JsonResponse

@@ -7,6 +7,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class Command
 {
     use DispatchesJobs,
-        RespondWithJsonTrait,
-        RespondWithJsonErrorTrait;
+        RespondWithJsonErrorTrait,
+        RespondWithJsonTrait;
 }

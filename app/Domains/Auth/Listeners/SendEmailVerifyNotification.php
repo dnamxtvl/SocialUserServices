@@ -2,15 +2,19 @@
 
 namespace App\Domains\Auth\Listeners;
 
-use Illuminate\Auth\Events\Registered;
+use App\Domains\Auth\Events\RegistedUserEvent;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendEmailVerifyNotification
+class SendEmailVerifyNotification implements ShouldQueue
 {
-    public function handle(Registered $event): void
+    public function handle(RegistedUserEvent $event): void
     {
         if ($event->user instanceof MustVerifyEmail && ! $event->user->hasVerifiedEmail()) {
-            $event->user->sendEmailVerificationNotification();
+            $user = $event->user;
+            /** @var User $user */
+            $user->sendEmailVerifyNotification(verifyCode: $event->verifyCode);
         }
     }
 }

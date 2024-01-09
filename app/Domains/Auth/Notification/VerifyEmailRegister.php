@@ -2,27 +2,27 @@
 
 namespace App\Domains\Auth\Notification;
 
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class VerifyEmailRegister extends VerifyEmail
+class VerifyEmailRegister extends Notification
 {
-    protected function verificationUrl($notifiable)
-    {
-        if (static::$createUrlCallback) {
-            return call_user_func(static::$createUrlCallback, $notifiable);
-        }
-        $prefix = config('frontend.url') . config('frontend.email_verify_url');
-        $temporarySignedURL = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(Config::get('auth.verification.expire', 60)),
-            [
-                'id' => $notifiable->getKey(),
-                'hash' => sha1($notifiable->getEmailForVerification()),
-            ]
-        );
+    public function __construct(
+        private readonly string $verifyCode
+    ) {
+    }
 
-        return str_replace(URL::to('/') . '/api/', $prefix, $temporarySignedURL);
+    public function via($notifiable): array
+    {
+        return ['mail'];
+    }
+
+    public function toMail($notifiable): MailMessage
+    {
+        return (new MailMessage)
+            ->subject('Mã OTP xác thực email')
+            ->line('Đây là mã OTP của bạn:')
+            ->line($this->verifyCode)
+            ->line('Mã này sẽ hết hạn sau một thời gian.');
     }
 }
