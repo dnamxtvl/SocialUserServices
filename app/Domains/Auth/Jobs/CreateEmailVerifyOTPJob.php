@@ -23,6 +23,6 @@ class CreateEmailVerifyOTPJob
          * @var User $user
          **/
         $emailVerifyOTPRepository->save(code: (string) $code, userId: $user->id, expiredAt: $expiredAt);
-        event(new RegistedUserEvent(user: $user, verifyCode: $code));
+//        event(new RegistedUserEvent(user: $user, verifyCode: $code));
     }
 }
