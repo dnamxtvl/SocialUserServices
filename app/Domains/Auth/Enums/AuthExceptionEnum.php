@@ -13,4 +13,8 @@ enum AuthExceptionEnum: int
     case ACCOUNT_CLOSED = 3463368;
 
     case EMAIL_NOT_VERIFY = 3453628;
+
+    case OTP_NOT_FOUND = 4546464;
+
+    case LOGIN_WRONG_PASSWORD_MANY = 4546964;
 }

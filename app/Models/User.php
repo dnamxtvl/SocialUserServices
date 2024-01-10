@@ -78,4 +78,9 @@ class User extends Authenticate implements MustVerifyEmail
     {
         return $this->hasMany(EmailVerifyOTO::class);
     }
+
+    public function BlockUserLoginTemporary(): HasMany
+    {
+        return $this->hasMany(BlockUserLoginTemporary::class);
+    }
 }

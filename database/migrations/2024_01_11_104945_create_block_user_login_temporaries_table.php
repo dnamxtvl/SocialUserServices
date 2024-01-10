@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_history_login', function (Blueprint $table) {
-            $table->id();
+        Schema::create('block_user_login_temporaries', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->string('ip')->nullable();
-            $table->string('device')->nullable();
-            $table->string('longitude')->nullable();
-            $table->string('latitude')->nullable();
-            $table->uuid('user_id')->index();
-            $table->tinyInteger('type');
+            $table->uuid('user_id')->fulltext();
+            $table->timestamp('expired_at')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_history_login');
+        Schema::dropIfExists('block_user_login_temporaries');
     }
 };

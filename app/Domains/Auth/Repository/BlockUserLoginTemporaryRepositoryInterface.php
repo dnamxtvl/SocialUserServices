@@ -2,12 +2,12 @@
 
 namespace App\Domains\Auth\Repository;
 
-use App\Domains\Auth\DTOs\SaveUserLoginHistoryDTO;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
-interface UserLoginHistoryRepositoryInterface
+interface BlockUserLoginTemporaryRepositoryInterface
 {
     public function getQuery(array $columnSelects = [], array $filters = []): Builder;
 
-    public function save(SaveUserLoginHistoryDTO $saveUserLoginHistoryDTO): void;
+    public function save(string $ip, string $userId, Carbon $expiredAt): void;
 }

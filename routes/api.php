@@ -20,6 +20,9 @@ Route::post('/register-user', [AuthController::class, 'register'])->name('auth.r
 Route::post('/email/verify-register/', [AuthController::class, 'verifyOTPAfterRegister'])->name('auth.verifyOTPAfterRegister');
 Route::post('/email/verify-login/', [AuthController::class, 'verifyOTPAfterLogin'])->name('auth.verifyOTPAfterLogin');
 Route::get('/email/verification-notification/{userId}', [AuthController::class, 'resendVerificationNotification'])->middleware(['throttle:6,1'])->name('auth.resendVerificationNotification');
+Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->middleware(['throttle:6,1', 'guest'])->name('auth.forgotPassword');
+Route::post('/forgot-password/verify-otp', [AuthController::class, 'verifyOTPForgotPassword'])->middleware('guest')->name('auth.verifyOTPForgotPassword');
+Route::post('/forgot-password/set-new-password', [AuthController::class, 'setNewPasswordAfterForgot'])->middleware('guest')->name('auth.setNewPasswordAfterForgot');
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('auth.logout');
 
