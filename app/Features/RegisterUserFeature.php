@@ -5,7 +5,7 @@ namespace App\Features;
 use App\Domains\Auth\Enums\TypeCodeOTPEnum;
 use App\Domains\Auth\Jobs\CreateEmailVerifyOTPJob;
 use App\Domains\User\DTOs\RegisterUserParamsDTO;
-use App\Domains\User\Jobs\SaveUserRegisterJob;
+use App\Domains\Auth\Jobs\SaveUserRegisterJob;
 use App\Helpers\Command;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;

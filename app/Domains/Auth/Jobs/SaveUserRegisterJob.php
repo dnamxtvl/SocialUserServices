@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\User\Jobs;
+namespace App\Domains\Auth\Jobs;
 
 use App\Domains\User\DTOs\RegisterUserParamsDTO;
 use App\Domains\User\Repository\UserRepositoryInterface;
