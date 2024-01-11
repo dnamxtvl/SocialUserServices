@@ -3,6 +3,7 @@
 namespace App\Features;
 
 use App\Domains\Auth\Enums\AuthExceptionEnum;
+use App\Domains\Auth\Enums\TypeCodeOTPEnum;
 use App\Domains\Auth\Exceptions\EmailVerifiedException;
 use App\Domains\Auth\Jobs\CreateEmailVerifyOTPJob;
 use App\Domains\User\Enums\UserExceptionEnum;
@@ -33,7 +34,7 @@ class ResendVerificationNotificationFeature extends Command
                 throw new EmailVerifiedException(code: AuthExceptionEnum::EMAIL_VERIFIED->value);
             }
 
-            $this->dispatchSync(new CreateEmailVerifyOTPJob(user: $user));
+            $this->dispatchSync(new CreateEmailVerifyOTPJob(user: $user, type: TypeCodeOTPEnum::VERIFY_EMAIL));
 
             return $this->respondWithJson(content: []);
         } catch (Throwable $exception) {

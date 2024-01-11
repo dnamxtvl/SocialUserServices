@@ -36,5 +36,8 @@ return [
     'gender' => [
         'men' => 0,
         'female' => 1
+    ],
+    'token' => [
+        'max_length' => 255
     ]
 ];

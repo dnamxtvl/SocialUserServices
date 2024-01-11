@@ -3,9 +3,11 @@
 namespace App\Features;
 
 use App\Domains\Auth\Enums\AuthExceptionEnum;
+use App\Domains\Auth\Enums\TypeCodeOTPEnum;
 use App\Domains\Auth\Exceptions\EmailVerifiedException;
+use App\Domains\Auth\Jobs\CheckIsValidVerifyEmailOTPJob;
 use App\Domains\Auth\Jobs\CreateTokenJwtLoginJob;
-use App\Domains\Auth\Jobs\VerifyEmailOTPJob;
+use App\Domains\Auth\Jobs\VerifyEmailJob;
 use App\Domains\User\Enums\UserExceptionEnum;
 use App\Domains\User\Exceptions\UserNotFoundException;
 use App\Domains\User\Repository\UserRepositoryInterface;
@@ -37,7 +39,13 @@ class VerifyOTPAfterLoginFeature extends Command
                 throw new EmailVerifiedException(code: AuthExceptionEnum::EMAIL_VERIFIED->value);
             }
 
-            $this->dispatchSync(new VerifyEmailOTPJob(user: $user, verifyCode: $this->code));
+            $this->dispatchSync(new CheckIsValidVerifyEmailOTPJob(
+                user: $user,
+                verifyCode: $this->code,
+                typeOTP: TypeCodeOTPEnum::VERIFY_EMAIL
+            ));
+
+            $this->dispatchSync(new VerifyEmailJob(user: $user));
 
             /** @var User $user */
             Auth::login($user);

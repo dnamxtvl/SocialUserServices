@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_history_login', function (Blueprint $table) {
-            $table->id();
+        Schema::create('user_forgot_password_logs', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->fulltext();
             $table->string('ip')->nullable();
             $table->string('device')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->uuid('user_id')->index();
-            $table->tinyInteger('type');
+            $table->tinyInteger('type')->index();
+            $table->index(['user_id', 'type']);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_history_login');
+        Schema::dropIfExists('user_forgot_password_logs');
     }
 };

@@ -18,7 +18,7 @@ class VerifyEmailOTPRequest extends FormRequest
     {
         return [
             'user_id' => 'required|string|max:'.config('validation.max_length_uuid'),
-            'verify_code' => 'required|string|size:'.config('validation.length_of_verify_code'),
+            'verify_code' => 'required|string|size:'.config('validation.verify_code.length'),
         ];
     }
 

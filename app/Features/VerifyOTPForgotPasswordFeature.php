@@ -4,19 +4,18 @@ namespace App\Features;
 
 use App\Domains\Auth\Enums\AuthExceptionEnum;
 use App\Domains\Auth\Enums\TypeCodeOTPEnum;
-use App\Domains\Auth\Exceptions\EmailVerifiedException;
 use App\Domains\Auth\Jobs\CheckIsValidVerifyEmailOTPJob;
-use App\Domains\Auth\Jobs\VerifyEmailJob;
 use App\Domains\User\Enums\UserExceptionEnum;
+use App\Domains\User\Enums\UserStatusEnum;
+use App\Domains\User\Exceptions\AccountClosedException;
 use App\Domains\User\Exceptions\UserNotFoundException;
 use App\Domains\User\Repository\UserRepositoryInterface;
 use App\Helpers\Command;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
-class VerifyOTPAfterRegisterFeature extends Command
+class VerifyOTPForgotPasswordFeature extends Command
 {
     public function __construct(
         private readonly string $userId,
@@ -26,7 +25,6 @@ class VerifyOTPAfterRegisterFeature extends Command
 
     public function handle(UserRepositoryInterface $userRepository): JsonResponse
     {
-        DB::beginTransaction();
         try {
             $user = $userRepository->findById(userId: $this->userId);
             if (is_null($user)) {
@@ -34,24 +32,18 @@ class VerifyOTPAfterRegisterFeature extends Command
             }
 
             /** @var User $user */
-            if ($user->hasVerifiedEmail()) {
-                throw new EmailVerifiedException(code: AuthExceptionEnum::EMAIL_VERIFIED->value);
+            if ($user->status === UserStatusEnum::CLOSE_ACCOUNT->value) {
+                throw new AccountClosedException(code: AuthExceptionEnum::ACCOUNT_CLOSED->value);
             }
 
-            $this->dispatchSync(new CheckIsValidVerifyEmailOTPJob(
+            $emailVerifyOTP = $this->dispatchSync(new CheckIsValidVerifyEmailOTPJob(
                 user: $user,
                 verifyCode: $this->code,
-                typeOTP: TypeCodeOTPEnum::VERIFY_EMAIL
+                typeOTP: TypeCodeOTPEnum::FORGET_PASSWORD
             ));
 
-            $this->dispatchSync(new VerifyEmailJob(user: $user));
-
-            DB::commit();
-
-            return $this->respondWithJson(content: []);
+            return $this->respondWithJson(content: $emailVerifyOTP->toArray());
         } catch (Throwable $exception) {
-            DB::rollBack();
-
             return $this->respondWithJsonError(e: $exception);
         }
     }

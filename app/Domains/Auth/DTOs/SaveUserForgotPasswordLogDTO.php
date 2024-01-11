@@ -2,24 +2,23 @@
 
 namespace App\Domains\Auth\DTOs;
 
-use App\Domains\Auth\Enums\TypeUserHistoryLoginEnum;
-use Illuminate\Database\Eloquent\Model;
+use App\Domains\Auth\Enums\TypeForgotPasswordLogEnum;
 
-class SaveUserLoginHistoryDTO
+class SaveUserForgotPasswordLogDTO
 {
     public function __construct(
-        private readonly Model $user,
+        private readonly string $userId,
         private readonly string $ip,
         private readonly string $device,
-        private readonly TypeUserHistoryLoginEnum $type,
+        private readonly TypeForgotPasswordLogEnum $type,
         private readonly ?string $longitude = null,
         private readonly ?string $latitude = null,
     ) {
     }
 
-    public function getUser(): Model
+    public function getUserId(): string
     {
-        return $this->user;
+        return $this->userId;
     }
 
     public function getIp(): string
@@ -42,7 +41,7 @@ class SaveUserLoginHistoryDTO
         return $this->latitude;
     }
 
-    public function getType(): TypeUserHistoryLoginEnum
+    public function getType(): TypeForgotPasswordLogEnum
     {
         return $this->type;
     }

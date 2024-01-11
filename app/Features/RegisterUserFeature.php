@@ -2,6 +2,7 @@
 
 namespace App\Features;
 
+use App\Domains\Auth\Enums\TypeCodeOTPEnum;
 use App\Domains\Auth\Jobs\CreateEmailVerifyOTPJob;
 use App\Domains\User\DTOs\RegisterUserParamsDTO;
 use App\Domains\User\Jobs\SaveUserRegisterJob;
@@ -25,7 +26,7 @@ class RegisterUserFeature extends Command
                 registerUserParams: $this->registerUserParams
             ));
 
-            $this->dispatchSync(new CreateEmailVerifyOTPJob(user: $newUser));
+            $this->dispatchSync(new CreateEmailVerifyOTPJob(user: $newUser, type: TypeCodeOTPEnum::VERIFY_EMAIL));
 
             DB::commit();
 
