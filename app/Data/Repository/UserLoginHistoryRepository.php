@@ -45,7 +45,7 @@ class UserLoginHistoryRepository implements UserLoginHistoryRepositoryInterface
         $userLoginHistory->ip = $saveUserLoginHistoryDTO->getIp();
         $userLoginHistory->user_id = $user->id;
         $userLoginHistory->device = $saveUserLoginHistoryDTO->getDevice();
-        $userLoginHistory->type = $saveUserLoginHistoryDTO->getType();
+        $userLoginHistory->type = $saveUserLoginHistoryDTO->getType()->value;
         $userLoginHistory->save();
     }
 }
