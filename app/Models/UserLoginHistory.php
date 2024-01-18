@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|mixed $user_id
  * @property mixed|string $device
  * @property TypeUserHistoryLoginEnum|mixed $type
+ * @property mixed|string|null $longitude
+ * @property mixed|string|null $latitude
+ * @property mixed|string|null $country_name
+ * @property mixed|string|null $city_name
  */
 class UserLoginHistory extends Model
 {

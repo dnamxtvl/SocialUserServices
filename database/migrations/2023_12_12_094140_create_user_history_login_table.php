@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('device')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
+            $table->string('country_name')->nullable();
+            $table->string('city_name')->nullable();
             $table->uuid('user_id')->index();
             $table->tinyInteger('type');
             $table->timestamps();

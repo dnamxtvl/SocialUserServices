@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Data\Observers\UserForgotPassWordLogObserver;
+use App\Data\Observers\UserLoginHistoryObserver;
 use App\Data\Repository\BlockUserLoginTemporaryRepository;
 use App\Data\Repository\EmailVerifyOTPRepository;
 use App\Data\Repository\UserForgotPasswordLogRepository;
@@ -12,6 +14,8 @@ use App\Domains\Auth\Repository\EmailVerifyOTPRepositoryInterface;
 use App\Domains\Auth\Repository\UserForgotPasswordLogRepositoryInterface;
 use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
 use App\Domains\User\Repository\UserRepositoryInterface;
+use App\Models\UserForgotPasswordLog;
+use App\Models\UserLoginHistory;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        UserForgotPasswordLog::observe(UserForgotPassWordLogObserver::class);
+        UserLoginHistory::observe(UserLoginHistoryObserver::class);
     }
 }

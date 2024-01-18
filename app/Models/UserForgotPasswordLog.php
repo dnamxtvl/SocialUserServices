@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed|string $ip
  * @property mixed|string $device
  * @property int|mixed $type
+ * @property mixed|string|null $longitude
+ * @property mixed|string|null $latitude
+ * @property mixed|string|null $country_name
+ * @property mixed|string|null $city_name
  */
 class UserForgotPasswordLog extends Model
 {

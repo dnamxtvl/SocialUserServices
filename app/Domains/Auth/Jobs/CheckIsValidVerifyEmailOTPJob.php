@@ -10,6 +10,8 @@ use App\Domains\Auth\Repository\EmailVerifyOTPRepositoryInterface;
 use App\Models\EmailVerifyOTO;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Password;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CheckIsValidVerifyEmailOTPJob
 {
@@ -39,6 +41,10 @@ class CheckIsValidVerifyEmailOTPJob
         /** @var EmailVerifyOTO $emailVerifyOTP */
         if (now()->gt(date: $emailVerifyOTP->expired_at)) {
             throw new OTPExpiredException(code: AuthExceptionEnum::OTP_EXPIRED->value);
+        }
+
+        if (! Password::tokenExists($emailVerifyOTP->user, $emailVerifyOTP->token)) {
+            throw new NotFoundHttpException('Token không tồn tại hoặc đã hết hạn!');
         }
 
         return $emailVerifyOTP;
