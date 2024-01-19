@@ -26,4 +26,6 @@
   - Cấu trúc của 1 domain:
     ![image](https://github.com/dnamxtvl/SocialUserServices/assets/61748711/cf44b905-9f6e-4aac-b2ff-19727e5648d1)
 
+    + Trong repository chứa các repository interface
+
     
