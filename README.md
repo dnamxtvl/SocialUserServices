@@ -14,7 +14,7 @@
    - ChatService: Nestjs base Domain Driven Design và CQRS
    - NotificationService: Nestjs base Service Layer
    - GroupService: Laravel base Domain Driven Design và Command Bus
-   - AdminCms: Laravel base Domain Driven Design và Command Bus
+   - AdminCms: Nestjs base Domain Driven Design và CQRS
 
 * Mô tả UserService
   - Backend API: Laravel
