@@ -3,6 +3,7 @@
    - Frontend: Nextjs
    - Giao tiếp: Http client,kafka,rebitmq,socket,webrtc
    - Database: Mysql và Mongodb
+   - Search engine: Elasticsearch
    - Cache: Redis
    - Môi trường: Docker - Laradock
    - Server: Aws ec2
@@ -13,7 +14,7 @@
    - ChatService: Nestjs base Domain Driven Design và CQRS
    - NotificationService: Nestjs base Service Layer
    - GroupService: Laravel base Domain Driven Design và Command Bus
-   - AdminCms: Laravel base Domain Driven Design và Command Bus
+   - AdminCms: Nestjs base Domain Driven Design và CQRS
 
 * Mô tả UserService
   - Backend API: Laravel
@@ -22,7 +23,7 @@
   - Caching: Redis
   - Database: Mysql và Mongodb
   - Cache: Redis
-  - Các packages: Laravel passport,Laravel horizon,Laravel stevebauman/location,Laravel Predis,Laravel telescope(only local)
+  - Các packages: Laravel passport,Laravel horizon,Laravel stevebauman/location,Laravel Predis,Laravel telescope(only local)...
   - Cấu trúc của 1 domain:
     ![image](https://github.com/dnamxtvl/SocialUserServices/assets/61748711/cf44b905-9f6e-4aac-b2ff-19727e5648d1)
 
