@@ -8,7 +8,7 @@ use App\Domains\Auth\Enums\TypeUserHistoryLoginEnum;
 use App\Domains\Auth\Repository\BlockUserLoginTemporaryRepositoryInterface;
 use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
 use App\Domains\User\Repository\UserRepositoryInterface;
-use App\Models\User;
+use App\Data\Models\User;
 
 class LoginWrongPasswordJob
 {

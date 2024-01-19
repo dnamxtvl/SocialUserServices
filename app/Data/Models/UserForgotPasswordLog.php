@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Data\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,5 +20,7 @@ class UserForgotPasswordLog extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $connection = 'mysql_user';
     protected $table = 'user_forgot_password_logs';
+    protected $primaryKey = 'id';
 }

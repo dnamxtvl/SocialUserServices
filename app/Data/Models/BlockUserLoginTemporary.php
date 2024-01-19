@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Data\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -16,5 +16,7 @@ class BlockUserLoginTemporary extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $connection = 'mysql_user';
     protected $table = 'block_user_login_temporaries';
+    protected $primaryKey = 'id';
 }

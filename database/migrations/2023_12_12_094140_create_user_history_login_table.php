@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_history_login', function (Blueprint $table) {
+        Schema::connection('mysql_user')->create('user_history_login', function (Blueprint $table) {
             $table->id();
             $table->string('ip')->nullable();
             $table->string('device')->nullable();

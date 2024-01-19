@@ -7,7 +7,7 @@ use App\Data\Pipelines\Global\TypeFilter;
 use App\Data\Pipelines\Global\UserIdFilter;
 use App\Domains\Auth\DTOs\SaveEmailVerifyOTPDTO;
 use App\Domains\Auth\Repository\EmailVerifyOTPRepositoryInterface;
-use App\Models\EmailVerifyOTO;
+use App\Data\Models\EmailVerifyOTO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;

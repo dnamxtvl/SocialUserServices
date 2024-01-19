@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_forgot_password_logs', function (Blueprint $table) {
+        Schema::connection('mysql_user')->create('user_forgot_password_logs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->fulltext();
             $table->string('ip')->nullable();

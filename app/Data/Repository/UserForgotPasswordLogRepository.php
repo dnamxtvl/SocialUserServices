@@ -4,7 +4,7 @@ namespace App\Data\Repository;
 
 use App\Domains\Auth\DTOs\SaveUserForgotPasswordLogDTO;
 use App\Domains\Auth\Repository\UserForgotPasswordLogRepositoryInterface;
-use App\Models\UserForgotPasswordLog;
+use App\Data\Models\UserForgotPasswordLog;
 
 class UserForgotPasswordLogRepository implements UserForgotPasswordLogRepositoryInterface
 {

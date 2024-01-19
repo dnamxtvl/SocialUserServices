@@ -15,7 +15,7 @@ use App\Domains\User\Exceptions\AccountClosedException;
 use App\Domains\User\Exceptions\UserNotFoundException;
 use App\Domains\User\Repository\UserRepositoryInterface;
 use App\Helpers\Command;
-use App\Models\User;
+use App\Data\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Throwable;

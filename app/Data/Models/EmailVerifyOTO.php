@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Data\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -20,7 +20,9 @@ class EmailVerifyOTO extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $connection = 'mysql_user';
     protected $table = 'email_verify_otps';
+    protected $primaryKey = 'id';
 
     public function user(): BelongsTo
     {

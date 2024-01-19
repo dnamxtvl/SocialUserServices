@@ -6,7 +6,7 @@ use App\Domains\Auth\DTOs\SaveUserForgotPasswordLogDTO;
 use App\Domains\Auth\DTOs\UserDeviceInformationDTO;
 use App\Domains\Auth\Enums\TypeForgotPasswordLogEnum;
 use App\Domains\Auth\Repository\UserForgotPasswordLogRepositoryInterface;
-use App\Models\EmailVerifyOTO;
+use App\Data\Models\EmailVerifyOTO;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 

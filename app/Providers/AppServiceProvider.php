@@ -14,9 +14,10 @@ use App\Domains\Auth\Repository\EmailVerifyOTPRepositoryInterface;
 use App\Domains\Auth\Repository\UserForgotPasswordLogRepositoryInterface;
 use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
 use App\Domains\User\Repository\UserRepositoryInterface;
-use App\Models\UserForgotPasswordLog;
-use App\Models\UserLoginHistory;
+use App\Data\Models\UserForgotPasswordLog;
+use App\Data\Models\UserLoginHistory;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,5 +40,9 @@ class AppServiceProvider extends ServiceProvider
     {
         UserForgotPasswordLog::observe(UserForgotPassWordLogObserver::class);
         UserLoginHistory::observe(UserLoginHistoryObserver::class);
+
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            return 'Database\\Factories\\'.class_basename($modelName).'Factory';
+        });
     }
 }

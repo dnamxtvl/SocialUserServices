@@ -10,7 +10,7 @@ use App\Domains\Auth\Repository\EmailVerifyOTPRepositoryInterface;
 use App\Domains\User\Enums\UserExceptionEnum;
 use App\Domains\User\Exceptions\UserNotFoundException;
 use App\Helpers\Command;
-use App\Models\EmailVerifyOTO;
+use App\Data\Models\EmailVerifyOTO;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;

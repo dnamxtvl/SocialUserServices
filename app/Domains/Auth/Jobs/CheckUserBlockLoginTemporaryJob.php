@@ -5,8 +5,8 @@ namespace App\Domains\Auth\Jobs;
 use App\Domains\Auth\Enums\AuthExceptionEnum;
 use App\Domains\Auth\Exceptions\LoginWrongPasswordManyException;
 use App\Domains\User\Repository\UserRepositoryInterface;
-use App\Models\BlockUserLoginTemporary;
-use App\Models\User;
+use App\Data\Models\BlockUserLoginTemporary;
+use App\Data\Models\User;
 
 class CheckUserBlockLoginTemporaryJob
 {

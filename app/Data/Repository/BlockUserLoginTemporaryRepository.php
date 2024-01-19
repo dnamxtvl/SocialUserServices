@@ -4,7 +4,7 @@ namespace App\Data\Repository;
 
 use App\Data\Pipelines\Global\UserIdFilter;
 use App\Domains\Auth\Repository\BlockUserLoginTemporaryRepositoryInterface;
-use App\Models\BlockUserLoginTemporary;
+use App\Data\Models\BlockUserLoginTemporary;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;

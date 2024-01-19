@@ -2,7 +2,7 @@
 
 namespace App\Data\Observers;
 
-use App\Models\UserForgotPasswordLog;
+use App\Data\Models\UserForgotPasswordLog;
 use Stevebauman\Location\Facades\Location;
 
 class UserForgotPassWordLogObserver

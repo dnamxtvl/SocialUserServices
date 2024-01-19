@@ -2,7 +2,7 @@
 
 namespace App\Domains\Auth\Jobs;
 
-use App\Models\User;
+use App\Data\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class VerifyEmailJob

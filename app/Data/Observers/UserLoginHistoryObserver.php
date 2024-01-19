@@ -2,7 +2,7 @@
 
 namespace App\Data\Observers;
 
-use App\Models\UserLoginHistory;
+use App\Data\Models\UserLoginHistory;
 use Stevebauman\Location\Facades\Location;
 
 class UserLoginHistoryObserver

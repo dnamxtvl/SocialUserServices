@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('email_verify_otps', function (Blueprint $table) {
+        Schema::connection('mysql_user')->create('email_verify_otps', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('code', config('validation.length_of_verify_code'))->fulltext();
             $table->uuid('user_id')->fulltext();

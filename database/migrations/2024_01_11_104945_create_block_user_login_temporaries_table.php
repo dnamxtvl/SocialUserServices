@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('block_user_login_temporaries', function (Blueprint $table) {
+        Schema::connection('mysql_user')->create('block_user_login_temporaries', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('ip')->nullable();
             $table->uuid('user_id')->fulltext();

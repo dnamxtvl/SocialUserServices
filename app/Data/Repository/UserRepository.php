@@ -6,7 +6,7 @@ use App\Data\Pipelines\User\EmailFilter;
 use App\Domains\User\DTOs\RegisterUserParamsDTO;
 use App\Domains\User\Enums\UserStatusEnum;
 use App\Domains\User\Repository\UserRepositoryInterface;
-use App\Models\User;
+use App\Data\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;

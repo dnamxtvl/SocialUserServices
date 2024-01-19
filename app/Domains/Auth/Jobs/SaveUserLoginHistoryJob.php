@@ -4,7 +4,7 @@ namespace App\Domains\Auth\Jobs;
 
 use App\Domains\Auth\DTOs\SaveUserLoginHistoryDTO;
 use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
-use App\Models\User;
+use App\Data\Models\User;
 
 class SaveUserLoginHistoryJob
 {

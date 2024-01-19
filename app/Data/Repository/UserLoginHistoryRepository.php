@@ -6,8 +6,8 @@ use App\Data\Pipelines\Global\TypeFilter;
 use App\Data\Pipelines\Global\UserIdFilter;
 use App\Domains\Auth\DTOs\SaveUserLoginHistoryDTO;
 use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
-use App\Models\User;
-use App\Models\UserLoginHistory;
+use App\Data\Models\User;
+use App\Data\Models\UserLoginHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
 

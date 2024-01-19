@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Data\Models;
 
 use App\Domains\Auth\Enums\TypeUserHistoryLoginEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +20,7 @@ class UserLoginHistory extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql_user';
     protected $table = 'user_history_login';
-
     protected $primaryKey = 'id';
 }

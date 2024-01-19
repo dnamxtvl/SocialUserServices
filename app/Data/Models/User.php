@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Data\Models;
 
 use App\Domains\Auth\Notification\VerifyEmailRegister;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -33,11 +33,9 @@ class User extends Authenticate implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $connection = 'mysql_user';
+    protected $table = 'users';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'name',
         'email',
