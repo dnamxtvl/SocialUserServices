@@ -16,7 +16,7 @@
    - GroupService: Laravel base Domain Driven Design và Command Bus
    - AdminCms: Nestjs base Domain Driven Design và CQRS
 
-* Mô tả UserService(đang phát triển)
+* Mô tả UserService(đang phát triển) https://docs.google.com/document/d/1dLUUgWvyjHj7dm0wxa9-3Vj1b-5eGNfn0vMWQxVTwRM/edit
   - Backend API: Laravel
   - Kiến trúc: Lucid Architecture dựa trên Domain Driven Design và Command Bus
   - Giao tiếp: Http client,kafka,socket
