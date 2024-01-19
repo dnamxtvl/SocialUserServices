@@ -7,6 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Passport\Token;
 
 class CreateTokenJwtLoginJob
 {
@@ -16,7 +17,7 @@ class CreateTokenJwtLoginJob
      * @return void
      */
     public function __construct(
-        private readonly ?Model $user,
+        private readonly Model $user,
         private readonly bool $rememberMe = false
     ) {
     }
@@ -32,15 +33,16 @@ class CreateTokenJwtLoginJob
         /** @var User $user */
         $tokenResult = $user->createToken('API Token');
         $token = $tokenResult->token;
+        /** @var Token $token */
         if ($this->rememberMe) {
-            $token->expires_at = now()->addWeek();
+            $token->setAttribute('expires_at', Carbon::now()->addWeek());
             $token->save();
         }
 
         return new UserLoginResponseDataDTO(
             user: $user,
             token: $tokenResult->accessToken,
-            expiresAt: Carbon::parse($token->expires_at)
+            expiresAt: Carbon::parse($token->getAttribute(/** @lang text */ 'expires_at'))
         );
     }
 }
