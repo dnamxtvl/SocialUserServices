@@ -23,5 +23,7 @@
   - Database: Mysql và Mongodb
   - Cache: Redis
   - Các packages: Laravel passport,Laravel horizon,Laravel stevebauman/location,Laravel Predis,Laravel telescope(only local)
+  - Cấu trúc của 1 domain:
+    ![image](https://github.com/dnamxtvl/SocialUserServices/assets/61748711/cf44b905-9f6e-4aac-b2ff-19727e5648d1)
 
-    ![image](https://github.com/dnamxtvl/SocialUserServices/assets/61748711/bd86b781-cc5f-45e3-bf58-b68a742cd676)
+    
