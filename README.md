@@ -3,6 +3,7 @@
    - Frontend: Nextjs
    - Giao tiếp: Http client,kafka,rebitmq,socket,webrtc
    - Database: Mysql và Mongodb
+   - Search engine: ElaticSearch
    - Cache: Redis
    - Môi trường: Docker - Laradock
    - Server: Aws ec2
