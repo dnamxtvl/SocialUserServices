@@ -27,7 +27,9 @@
     ![image](https://github.com/dnamxtvl/SocialUserServices/assets/61748711/cf44b905-9f6e-4aac-b2ff-19727e5648d1)
 
     + Trong repository chứa các repository interface
-   
+
+
+
   - Cấu trúc của data layer:
     ![image](https://github.com/dnamxtvl/SocialUserServices/assets/61748711/025a10b3-6897-4e21-800b-c8f8a94ae4ab)
 
