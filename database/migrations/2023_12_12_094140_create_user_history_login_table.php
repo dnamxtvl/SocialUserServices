@@ -17,10 +17,12 @@ return new class extends Migration
             $table->string('device')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->string('country_name')->nullable();
-            $table->string('city_name')->nullable();
-            $table->uuid('user_id')->index();
-            $table->tinyInteger('type');
+            $table->string('country_name')->nullable()->fulltext();
+            $table->string('city_name')->nullable()->fulltext();
+            $table->uuid('user_id')->fulltext();
+            $table->tinyInteger('type')->index();
+            $table->index(['user_id', 'type']);
+            $table->index(['country_name', 'city_name']);
             $table->timestamps();
         });
     }

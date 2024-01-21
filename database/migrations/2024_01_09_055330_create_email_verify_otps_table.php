@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('type')->default(TypeCodeOTPEnum::VERIFY_EMAIL->value)->index()
                 ->comment('Loại OTP gồm 1:xác thực email,2:OTP quên mật khẩu,3: OTP login ip lạ');
             $table->string('token');
-            $table->index(['code', 'user_id', 'type']);
+            $table->index(['user_id', 'type']);
             $table->timestamps();
         });
     }
