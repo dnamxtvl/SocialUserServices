@@ -10,7 +10,7 @@
      
 * Kiến trúc Backend:
    - UserService: Laravel base Lucid Architecture dựa trên Domain Driven Design và Command Bus
-   - PostService: Laravel base Domain Driven Design và Command Bus
+   - PostService: Laravel base Domain Driven Design và Command Bus https://github.com/dnamxtvl/SocialPostServices
    - ChatService: Nestjs base Domain Driven Design và CQRS
    - NotificationService: Nestjs base Service Layer
    - GroupService: Laravel base Domain Driven Design và Command Bus
