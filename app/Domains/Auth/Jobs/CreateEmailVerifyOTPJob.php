@@ -30,7 +30,7 @@ class CreateEmailVerifyOTPJob
             userId: $user->id,
             expiredAt: now()->addHour(),
             type: $this->type,
-            token: Password::createToken($user)
+            token: Password::createToken(user: $user)
         );
         $emailVerifyOTPRepository->save(saveEmailVerify: $saveEmailVerifyDTO);
         event(new RegistedUserEvent(user: $user, verifyCode: $code));
