@@ -43,7 +43,7 @@ class CheckIsValidVerifyEmailOTPJob
             throw new OTPExpiredException(code: AuthExceptionEnum::OTP_EXPIRED->value);
         }
 
-        if (! Password::tokenExists($emailVerifyOTP->user, $emailVerifyOTP->token)) {
+        if (! Password::tokenExists(user: $user, token: $emailVerifyOTP->token)) {
             throw new NotFoundHttpException('Token không tồn tại hoặc đã hết hạn!');
         }
 
