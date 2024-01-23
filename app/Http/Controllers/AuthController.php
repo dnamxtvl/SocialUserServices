@@ -74,7 +74,7 @@ class AuthController extends Controller
         return $this->dispatchSync(new ResendVerificationNotificationFeature(userId: $userId));
     }
 
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $userDeviceInformation = new UserDeviceInformationDTO(ip: $request->ip(), device: $request->header('User-Agent'));
 
@@ -84,7 +84,7 @@ class AuthController extends Controller
         ));
     }
 
-    public function verifyOTPForgotPassword(VerifyEmailOTPRequest $request)
+    public function verifyOTPForgotPassword(VerifyEmailOTPRequest $request): JsonResponse
     {
         return $this->dispatchSync(new VerifyOTPForgotPasswordFeature(
             userId: $request->input('user_id'),
@@ -92,7 +92,7 @@ class AuthController extends Controller
         ));
     }
 
-    public function setNewPasswordAfterForgot(SetNewPasswordAfterForgotRequest $request)
+    public function setNewPasswordAfterForgot(SetNewPasswordAfterForgotRequest $request): JsonResponse
     {
         $userDeviceInformation = new UserDeviceInformationDTO(ip: $request->ip(), device: $request->header('User-Agent'));
 
