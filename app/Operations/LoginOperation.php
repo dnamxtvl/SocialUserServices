@@ -55,14 +55,20 @@ class LoginOperation extends Command
                 email: $this->loginParams->getEmail(),
                 userDeviceInformation: $this->userDeviceInformation
             ));
-            throw new UnauthorizedHttpException(challenge: 'Invalid Argument', message: 'Sai email hoặc mật khẩu!');
+            throw new UnauthorizedHttpException(
+                challenge: 'Invalid Argument',
+                message: 'Sai email hoặc mật khẩu!'
+            );
         }
 
         $user = Auth::user();
 
         /** @var User $user */
         if (! $user->hasVerifiedEmail()) {
-            $this->dispatchSync(new CreateEmailVerifyOTPJob(user: $user, type: TypeCodeOTPEnum::VERIFY_EMAIL));
+            $this->dispatchSync(new CreateEmailVerifyOTPJob(
+                user: $user,
+                type: TypeCodeOTPEnum::VERIFY_EMAIL
+            ));
             throw new EmailNotVerifyException(code: AuthExceptionEnum::EMAIL_NOT_VERIFY->value);
         }
 
@@ -71,6 +77,9 @@ class LoginOperation extends Command
             throw new AccountClosedException(code: AuthExceptionEnum::ACCOUNT_CLOSED->value);
         }
 
-        return $this->dispatchSync(new CreateTokenJwtLoginJob(user: $user, rememberMe: $this->loginParams->getRememberMe()));
+        return $this->dispatchSync(new CreateTokenJwtLoginJob(
+            user: $user,
+            rememberMe: $this->loginParams->getRememberMe()
+        ));
     }
 }
