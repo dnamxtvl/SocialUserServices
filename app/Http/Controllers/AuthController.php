@@ -27,7 +27,10 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request): JsonResponse
     {
-        $userDeviceInformation = new UserDeviceInformationDTO(ip: $request->ip(), device: $request->header('User-Agent'));
+        $userDeviceInformation = new UserDeviceInformationDTO(
+            ip: $request->ip(),
+            device: $request->header('User-Agent')
+        );
 
         $loginParams = new LoginParamsDTO(
             email: $request->input('email'),
@@ -35,7 +38,10 @@ class AuthController extends Controller
             rememberMe: $request->input('remember_me'),
         );
 
-        return $this->dispatchSync(new LoginFeature(loginParams: $loginParams, userDeviceInformation: $userDeviceInformation));
+        return $this->dispatchSync(new LoginFeature(
+            loginParams: $loginParams,
+            userDeviceInformation: $userDeviceInformation
+        ));
     }
 
     public function register(RegisterUserRequest $request): JsonResponse
@@ -76,7 +82,10 @@ class AuthController extends Controller
 
     public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
-        $userDeviceInformation = new UserDeviceInformationDTO(ip: $request->ip(), device: $request->header('User-Agent'));
+        $userDeviceInformation = new UserDeviceInformationDTO(
+            ip: $request->ip(),
+            device: $request->header('User-Agent')
+        );
 
         return $this->dispatchSync(new ForgotPasswordFeature(
             email: $request->input('email'),
@@ -94,7 +103,10 @@ class AuthController extends Controller
 
     public function setNewPasswordAfterForgot(SetNewPasswordAfterForgotRequest $request): JsonResponse
     {
-        $userDeviceInformation = new UserDeviceInformationDTO(ip: $request->ip(), device: $request->header('User-Agent'));
+        $userDeviceInformation = new UserDeviceInformationDTO(
+            ip: $request->ip(),
+            device: $request->header('User-Agent')
+        );
 
         return $this->dispatchSync(new SetNewPasswordAfterForgotFeature(
             otpId: $request->input('otp_id'),
