@@ -27,7 +27,9 @@ class CheckUserBlockLoginTemporaryJob
                 ->first();
 
             if ($lockUserLoginTemporary && ! now()->gt(date: $lockUserLoginTemporary->expired_at)) {
-                throw new LoginWrongPasswordManyException(code: AuthExceptionEnum::LOGIN_WRONG_PASSWORD_MANY->value);
+                throw new LoginWrongPasswordManyException(
+                    code: AuthExceptionEnum::LOGIN_WRONG_PASSWORD_MANY->value
+                );
             }
         }
     }
