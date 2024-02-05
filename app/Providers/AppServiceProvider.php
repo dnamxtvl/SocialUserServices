@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         UserForgotPasswordLog::observe(UserForgotPassWordLogObserver::class);
         UserLoginHistory::observe(UserLoginHistoryObserver::class);
 
-        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            Factory::guessFactoryNamesUsing(function (string $modelName) {
             return 'Database\\Factories\\'.class_basename($modelName).'Factory';
         });
     }

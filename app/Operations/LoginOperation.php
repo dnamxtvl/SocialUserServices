@@ -50,7 +50,7 @@ class LoginOperation extends Command
             ip: $this->userDeviceInformation->getIp()
         ));
 
-        if (! Auth::attempt($credentials, $this->loginParams->getRememberMe())) {
+        if (! Auth::attempt(credentials:  $credentials, remember:  $this->loginParams->getRememberMe())) {
             $this->dispatchSync(new LoginWrongPasswordJob(
                 email: $this->loginParams->getEmail(),
                 userDeviceInformation: $this->userDeviceInformation

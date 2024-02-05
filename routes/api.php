@@ -30,4 +30,8 @@ Route::group(['middleware' => ['auth:api', 'verified']], function () {
     Route::get('/test', function (Request $request) {
         return $request->user();
     });
+
+    Route::post('/check-login', function (Request $request) {
+        return $request->user();
+    });
 });
