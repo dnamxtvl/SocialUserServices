@@ -16,7 +16,9 @@ use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
 use App\Domains\User\Repository\UserRepositoryInterface;
 use App\Data\Models\UserForgotPasswordLog;
 use App\Data\Models\UserLoginHistory;
+use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use SebastianBergmann\Invoker\TimeoutException;
@@ -40,6 +42,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        DB::listen(function (QueryExecuted $query) {
+            if ($query->time > config('app.max_query_timeout')) {
+                Log::error(message: $query->sql . ' timeout ' . $query->time);
+            }
+        });
         DB::whenQueryingForLongerThan(config('app.max_query_timeout'), function () {
             throw new TimeoutException('Database mất quá nhiều thời gian phản hồi.');
         });
