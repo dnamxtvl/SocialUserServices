@@ -16,8 +16,6 @@ use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
 use App\Domains\User\Repository\UserRepositoryInterface;
 use App\Data\Models\UserForgotPasswordLog;
 use App\Data\Models\UserLoginHistory;
-use Illuminate\Database\Connection;
-use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
