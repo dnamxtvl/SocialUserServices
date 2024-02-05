@@ -44,7 +44,7 @@ class CheckIsValidVerifyEmailOTPJob
         }
 
         if (! Password::tokenExists(user: $user, token: $emailVerifyOTP->token)) {
-            throw new NotFoundHttpException('Token không tồn tại hoặc đã hết hạn!');
+            throw new NotFoundHttpException(message: 'Token không tồn tại hoặc đã hết hạn!');
         }
 
         return $emailVerifyOTP;

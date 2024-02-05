@@ -45,8 +45,8 @@ class SetNewPasswordAfterForgotFeature extends Command
                 throw new UserNotFoundException(code: UserExceptionEnum::USER_NOT_FOUND_WHEN_SET_NEW_PASSWORD->value);
             }
 
-            if (! Password::tokenExists($emailVerifyOTP->user, $this->token)) {
-                throw new NotFoundHttpException('Token không tồn tại hoặc đã hết hạn!');
+            if (! Password::tokenExists(user: $emailVerifyOTP->user, token: $this->token)) {
+                throw new NotFoundHttpException(message: 'Token không tồn tại hoặc đã hết hạn!');
             }
 
             $this->dispatchSync(new ChangeUserPasswordJob(
