@@ -27,10 +27,6 @@ Route::post('/forgot-password/set-new-password', [AuthController::class, 'setNew
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('auth.logout');
 
 Route::group(['middleware' => ['auth:api', 'verified']], function () {
-    Route::get('/test', function (Request $request) {
-        return $request->user();
-    });
-
     Route::post('/check-login', function (Request $request) {
         return $request->user();
     });
