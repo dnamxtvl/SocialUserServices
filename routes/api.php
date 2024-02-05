@@ -24,9 +24,8 @@ Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->middl
 Route::post('/forgot-password/verify-otp', [AuthController::class, 'verifyOTPForgotPassword'])->middleware('guest')->name('auth.verifyOTPForgotPassword');
 Route::post('/forgot-password/set-new-password', [AuthController::class, 'setNewPasswordAfterForgot'])->middleware('guest')->name('auth.setNewPasswordAfterForgot');
 
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('auth.logout');
-
 Route::group(['middleware' => ['auth:api', 'verified']], function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('auth.logout');
     Route::post('/check-login', function (Request $request) {
         return $request->user();
     });
