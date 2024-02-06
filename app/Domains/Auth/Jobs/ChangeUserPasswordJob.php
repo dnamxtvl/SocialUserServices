@@ -9,6 +9,7 @@ use App\Domains\Auth\Repository\UserForgotPasswordLogRepositoryInterface;
 use App\Data\Models\EmailVerifyOTO;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class ChangeUserPasswordJob
 {
@@ -33,5 +34,6 @@ class ChangeUserPasswordJob
 
         $userForgotPasswordLogRepository->save(saveUserForgotPasswordLog: $saveUserForgotPassword);
         $emailVerifyOTP->delete();
+        Password::deleteToken(user: $emailVerifyOTP->user);
     }
 }

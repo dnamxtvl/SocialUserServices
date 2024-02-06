@@ -33,6 +33,6 @@ class CreateEmailVerifyOTPJob
             token: Password::createToken(user: $user)
         );
         $emailVerifyOTPRepository->save(saveEmailVerify: $saveEmailVerifyDTO);
-//        event(new RegistedUserEvent(user: $user, verifyCode: $code));
+        event(new RegistedUserEvent(user: $user, verifyCode: $code));
     }
 }
