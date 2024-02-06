@@ -22,6 +22,7 @@ Route::post('/email/verify-login/', [AuthController::class, 'verifyOTPAfterLogin
 Route::get('/email/verification-notification/{userId}', [AuthController::class, 'resendVerificationNotification'])->middleware(['throttle:6,1'])->name('auth.resendVerificationNotification');
 Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->middleware(['throttle:6,1', 'guest'])->name('auth.forgotPassword');
 Route::post('/forgot-password/verify-otp', [AuthController::class, 'verifyOTPForgotPassword'])->middleware('guest')->name('auth.verifyOTPForgotPassword');
+Route::get('/forgot-password/resend-otp/{userId}', [AuthController::class, 'resendOTPForgotPassword'])->middleware(['throttle:6,1'])->name('auth.resendOTPForgotPassword');
 Route::post('/forgot-password/set-new-password', [AuthController::class, 'setNewPasswordAfterForgot'])->middleware('guest')->name('auth.setNewPasswordAfterForgot');
 
 Route::group(['middleware' => ['auth:api', 'verified']], function () {

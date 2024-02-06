@@ -10,6 +10,7 @@ use App\Features\ForgotPasswordFeature;
 use App\Features\LoginFeature;
 use App\Features\LogoutFeature;
 use App\Features\RegisterUserFeature;
+use App\Features\ResendOTPForgotPasswordFeature;
 use App\Features\ResendVerificationNotificationFeature;
 use App\Features\SetNewPasswordAfterForgotFeature;
 use App\Features\VerifyOTPAfterLoginFeature;
@@ -99,6 +100,11 @@ class AuthController extends Controller
             userId: $request->input('user_id'),
             code: $request->input('verify_code')
         ));
+    }
+
+    public function resendOTPForgotPassword(string $userId): JsonResponse
+    {
+        return $this->dispatchSync(new ResendOTPForgotPasswordFeature(userId: $userId));
     }
 
     public function setNewPasswordAfterForgot(SetNewPasswordAfterForgotRequest $request): JsonResponse
