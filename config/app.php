@@ -168,7 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        App\Providers\RouteServiceProvider::class
     ])->toArray(),
 
     /*
@@ -186,5 +186,5 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
-    'max_query_timeout' => 60
+    'max_query_timeout' => 600
 ];

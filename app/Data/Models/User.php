@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 /**
  * @property mixed|string $last_name
@@ -31,7 +32,7 @@ use Laravel\Passport\HasApiTokens;
  */
 class User extends Authenticate implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes, Searchable;
 
     protected $connection = 'mysql_user';
     protected $table = 'users';
