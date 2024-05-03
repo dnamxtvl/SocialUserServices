@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Data\Models\City;
-use App\Data\Models\District;
-use App\Data\Models\School;
-use App\Data\Models\Ward;
+use App\Infrastructure\Models\City;
+use App\Infrastructure\Models\District;
+use App\Infrastructure\Models\School;
+use App\Infrastructure\Models\Ward;
 use Illuminate\Database\Seeder;
 use Throwable;
 

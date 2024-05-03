@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Data\Models\ClassRoom;
-use App\Data\Models\School;
-use App\Data\Models\User;
+use App\Infrastructure\Models\ClassRoom;
+use App\Infrastructure\Models\School;
+use App\Infrastructure\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Throwable;

@@ -2,20 +2,20 @@
 
 namespace App\Providers;
 
-use App\Data\Observers\UserForgotPassWordLogObserver;
-use App\Data\Observers\UserLoginHistoryObserver;
-use App\Data\Repository\BlockUserLoginTemporaryRepository;
-use App\Data\Repository\EmailVerifyOTPRepository;
-use App\Data\Repository\UserForgotPasswordLogRepository;
-use App\Data\Repository\UserLoginHistoryRepository;
-use App\Data\Repository\UserRepository;
+use App\Infrastructure\Observers\UserForgotPassWordLogObserver;
+use App\Infrastructure\Observers\UserLoginHistoryObserver;
+use App\Infrastructure\Repository\BlockUserLoginTemporaryRepository;
+use App\Infrastructure\Repository\EmailVerifyOTPRepository;
+use App\Infrastructure\Repository\UserForgotPasswordLogRepository;
+use App\Infrastructure\Repository\UserLoginHistoryRepository;
+use App\Infrastructure\Repository\UserRepository;
 use App\Domains\Auth\Repository\BlockUserLoginTemporaryRepositoryInterface;
 use App\Domains\Auth\Repository\EmailVerifyOTPRepositoryInterface;
 use App\Domains\Auth\Repository\UserForgotPasswordLogRepositoryInterface;
 use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
 use App\Domains\User\Repository\UserRepositoryInterface;
-use App\Data\Models\UserForgotPasswordLog;
-use App\Data\Models\UserLoginHistory;
+use App\Infrastructure\Models\UserForgotPasswordLog;
+use App\Infrastructure\Models\UserLoginHistory;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\DB;

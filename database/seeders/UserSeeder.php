@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Data\Models\City;
-use App\Data\Models\District;
-use App\Data\Models\Job;
-use App\Data\Models\Position;
-use App\Data\Models\User;
-use App\Data\Models\Ward;
+use App\Infrastructure\Models\City;
+use App\Infrastructure\Models\District;
+use App\Infrastructure\Models\Job;
+use App\Infrastructure\Models\Position;
+use App\Infrastructure\Models\User;
+use App\Infrastructure\Models\Ward;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;

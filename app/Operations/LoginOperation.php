@@ -15,7 +15,7 @@ use App\Domains\User\Enums\UserStatusEnum;
 use App\Domains\User\Exceptions\AccountClosedException;
 use App\Features\DTOs\LoginParamsDTO;
 use App\Helpers\Command;
-use App\Data\Models\User;
+use App\Infrastructure\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
