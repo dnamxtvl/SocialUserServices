@@ -3,7 +3,7 @@
 namespace App\Domains\Auth\Listeners;
 
 use App\Domains\Auth\Events\RegistedUserEvent;
-use App\Data\Models\User;
+use App\Infrastructure\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

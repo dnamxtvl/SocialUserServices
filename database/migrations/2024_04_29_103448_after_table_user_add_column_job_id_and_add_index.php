@@ -26,8 +26,7 @@ return new class extends Migration
             $table->index(['from_city_id', 'organization_id','from_district_id']);
             $table->index(['from_city_id', 'from_district_id']);
             $table->index(['organization_id', 'position_id']);
-            $table->index(['organization_id', 'job_id']);
-            $table->index(['organization_id', 'type_account']);
+            $table->index(['organization_id', 'unit_room_id']);
         });
     }
 

@@ -7,10 +7,10 @@ use App\Domains\User\Repository\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
-class SaveUserRegisterJob
+readonly class SaveUserRegisterJob
 {
     public function __construct(
-        private readonly RegisterUserParamsDTO $registerUserParams,
+        private RegisterUserParamsDTO $registerUserParams,
     ) {
     }
 

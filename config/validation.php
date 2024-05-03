@@ -39,5 +39,11 @@ return [
     ],
     'token' => [
         'max_length' => 255
+    ],
+    'type_account' => [
+        'system' => 0,
+        'organization' => 1,
+        'child' => 2,
+        'parent' => 3
     ]
 ];
