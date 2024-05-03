@@ -15,5 +15,7 @@ return [
         'married' => 1,
         'dating' => 2,
         'live_together' => 3
-    ]
+    ],
+    'tax_code_length' => 10,
+    'identity_id_length' => 12,
 ];

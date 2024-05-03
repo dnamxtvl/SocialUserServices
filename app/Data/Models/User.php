@@ -37,11 +37,7 @@ class User extends Authenticate implements MustVerifyEmail
     protected $connection = 'mysql_user';
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.

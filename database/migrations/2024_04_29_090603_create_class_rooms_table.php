@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql_user')->create('oauth_personal_access_clients', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->uuid('client_id');
+        Schema::connection('mysql_user')->create('class_rooms', function (Blueprint $table) {
+            $table->id()->startingValue(1000000);
+            $table->string('name')->index();
+            $table->integer('school_id')->index();
+            $table->uuid('teacher_id')->index();
+            $table->integer('count_student');
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('oauth_personal_access_clients');
+        Schema::dropIfExists('class_rooms');
     }
 };

@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::connection('mysql_user')->create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('first_name', 30)->fulltext();
-            $table->string('last_name', 30)->fulltext();
+            $table->char('identity_id', config('user.identity_id_length'))->unique()->nullable();
+            $table->integer('user_code')->unique();
+            $table->string('first_name', config('validation.first_name.max_length'))->fulltext();
+            $table->string('last_name', config('validation.last_name.max_length'))->fulltext();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone_number', 20)->nullable()->fulltext();
