@@ -45,7 +45,6 @@ class AppServiceProvider extends ServiceProvider
     {
         DB::whenQueryingForLongerThan(config('app.max_query_timeout'), function (Connection $connection,  QueryExecuted $event) {
             Log::error(message: $event->sql . ' timeout ' . $event->time . ' in database ' . $event->connectionName);
-            throw new TimeoutException('Database mất quá nhiều thời gian phản hồi.');
         });
         UserForgotPasswordLog::observe(UserForgotPassWordLogObserver::class);
         UserLoginHistory::observe(UserLoginHistoryObserver::class);

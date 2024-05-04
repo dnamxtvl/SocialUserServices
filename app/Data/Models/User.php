@@ -12,7 +12,10 @@ use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
+use JeroenG\Explorer\Application\Explored;
 
 /**
  * @property mixed|string $last_name
@@ -30,7 +33,7 @@ use Laravel\Scout\Searchable;
  * @property mixed $userLoginHistories
  * @property Carbon|mixed $latest_login
  */
-class User extends Authenticate implements MustVerifyEmail
+class User extends Authenticate implements MustVerifyEmail, Explored
 {
     use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes, Searchable;
 
@@ -38,7 +41,7 @@ class User extends Authenticate implements MustVerifyEmail
     protected $table = 'users';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'name',
+        'first_name',
         'email',
         'password',
     ];
@@ -81,5 +84,15 @@ class User extends Authenticate implements MustVerifyEmail
     public function blockUserLoginTemporary(): HasMany
     {
         return $this->hasMany(BlockUserLoginTemporary::class);
+    }
+
+    public function mappableAs(): array
+    {
+        return [
+            'id' => 'keyword',
+            'first_name' => 'text',
+            'last_name' => 'text',
+            'email' => 'text',
+        ];
     }
 }
