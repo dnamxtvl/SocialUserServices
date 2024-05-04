@@ -3,7 +3,7 @@
 namespace App\Domains\Auth\Jobs;
 
 use App\Domains\Auth\DTOs\UserLoginResponseDataDTO;
-use App\Data\Models\User;
+use App\Infrastructure\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Model;

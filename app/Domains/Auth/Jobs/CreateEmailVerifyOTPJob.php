@@ -6,7 +6,7 @@ use App\Domains\Auth\DTOs\SaveEmailVerifyOTPDTO;
 use App\Domains\Auth\Enums\TypeCodeOTPEnum;
 use App\Domains\Auth\Events\RegistedUserEvent;
 use App\Domains\Auth\Repository\EmailVerifyOTPRepositoryInterface;
-use App\Data\Models\User;
+use App\Infrastructure\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Password;
 

@@ -2,19 +2,29 @@
 
 namespace App\Domains\User\DTOs;
 
+use App\Domains\User\Enums\TypeAccountEnum;
 use App\Domains\User\Enums\UserGenderEnums;
 
-class RegisterUserParamsDTO
+readonly class RegisterUserParamsDTO
 {
     public function __construct(
-        private readonly string $firstname,
-        private readonly string $lastname,
-        private readonly string $email,
-        private readonly string $password,
-        private readonly int $dayOfBirth,
-        private readonly int $monthOfBirth,
-        private readonly int $yearOfBirth,
-        private readonly UserGenderEnums $gender,
+        private string $firstname,
+        private string $lastname,
+        private string $email,
+        private string $password,
+        private int $dayOfBirth,
+        private int $monthOfBirth,
+        private int $yearOfBirth,
+        private UserGenderEnums $gender,
+        private int $fromCityId,
+        private int $fromDistrictId,
+        private int $fromWardId,
+        private int $currentCityId,
+        private int $currentDistrictId,
+        private int $currentWardId,
+        private TypeAccountEnum $typeAccount,
+        private int $organizationId,
+        private int $unitRoomId,
     ) {
     }
 
@@ -56,5 +66,50 @@ class RegisterUserParamsDTO
     public function getGender(): UserGenderEnums
     {
         return $this->gender;
+    }
+
+    public function getFromCityId(): int
+    {
+        return $this->fromCityId;
+    }
+
+    public function getFromDistrictId(): int
+    {
+        return $this->fromDistrictId;
+    }
+
+    public function getFromWardId(): int
+    {
+        return $this->fromWardId;
+    }
+
+    public function getCurrentCityId(): int
+    {
+        return $this->currentCityId;
+    }
+
+    public function getCurrentDistrictId(): int
+    {
+        return $this->currentDistrictId;
+    }
+
+    public function getCurrentWardId(): int
+    {
+        return $this->currentWardId;
+    }
+
+    public function getTypeAccount(): TypeAccountEnum
+    {
+        return $this->typeAccount;
+    }
+
+    public function getOrganizationId(): int
+    {
+        return $this->organizationId;
+    }
+
+    public function getUnitRoomId(): int
+    {
+        return $this->unitRoomId;
     }
 }
