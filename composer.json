@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.2",
+        "jeroen-g/explorer": "^3.14",
         "laravel/framework": "^11.5",
         "laravel/horizon": "^5.21",
         "laravel/passport": "^12.0",

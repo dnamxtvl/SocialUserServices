@@ -5,14 +5,14 @@ namespace App\Domains\Auth\DTOs;
 use App\Domains\Auth\Enums\TypeCodeOTPEnum;
 use Carbon\Carbon;
 
-class SaveEmailVerifyOTPDTO
+readonly class SaveEmailVerifyOTPDTO
 {
     public function __construct(
-        private readonly string $code,
-        private readonly string $userId,
-        private readonly Carbon $expiredAt,
-        private readonly TypeCodeOTPEnum $type,
-        private readonly string $token
+        private string $code,
+        private string $userId,
+        private Carbon $expiredAt,
+        private TypeCodeOTPEnum $type,
+        private string $token
     ) {
     }
 

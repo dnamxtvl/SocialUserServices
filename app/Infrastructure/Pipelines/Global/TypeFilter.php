@@ -4,10 +4,10 @@ namespace App\Infrastructure\Pipelines\Global;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class TypeFilter
+readonly class TypeFilter
 {
     public function __construct(
-        private readonly array $filters,
+        private array $filters,
     ) {
     }
 

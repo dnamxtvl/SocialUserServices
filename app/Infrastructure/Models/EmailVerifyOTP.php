@@ -15,14 +15,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed|string $type
  * @property mixed $user
  * @property mixed|string $token
+ * @property mixed $id
  */
-class EmailVerifyOTO extends Model
+class EmailVerifyOTP extends Model
 {
     use HasFactory, HasUuids;
 
     protected $connection = 'mysql_user';
+
     protected $table = 'email_verify_otps';
+
     protected $primaryKey = 'id';
+
+    protected $casts = [
+        'expired_at' => 'datetime',
+    ];
 
     public function user(): BelongsTo
     {

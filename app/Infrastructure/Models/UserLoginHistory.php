@@ -21,6 +21,8 @@ class UserLoginHistory extends Model
     use HasFactory;
 
     protected $connection = 'mysql_user';
+
     protected $table = 'user_history_login';
+
     protected $primaryKey = 'id';
 }

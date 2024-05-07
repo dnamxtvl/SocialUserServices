@@ -5,6 +5,7 @@ namespace App\Infrastructure\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property mixed|string $user_id
@@ -15,12 +16,20 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed|string|null $latitude
  * @property mixed|string|null $country_name
  * @property mixed|string|null $city_name
+ * @property mixed $user
  */
 class UserForgotPasswordLog extends Model
 {
     use HasFactory, HasUuids;
 
     protected $connection = 'mysql_user';
+
     protected $table = 'user_forgot_password_logs';
+
     protected $primaryKey = 'id';
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

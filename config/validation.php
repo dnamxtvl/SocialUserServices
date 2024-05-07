@@ -45,5 +45,11 @@ return [
         'organization' => 1,
         'child' => 2,
         'parent' => 3
+    ],
+    'identity_id' => [
+        'length' => 12
+    ],
+    'user_code' => [
+        'length' => 8
     ]
 ];
