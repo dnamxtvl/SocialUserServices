@@ -42,14 +42,23 @@ use JeroenG\Explorer\Application\Explored;
  * @property int|mixed $type_account
  * @property int|mixed $organization_id
  * @property int|mixed $unit_room_id
+ * @property mixed|string $identity_id
+ * @property int|mixed $status_active
+ * @property mixed $created_at
+ * @property mixed $latest_active_at
+ * @property mixed $position_id
+ * @property mixed $job_id
  */
 class User extends Authenticate implements MustVerifyEmail, Explored
 {
-    use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes, Searchable;
+    use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes;
 
     protected $connection = 'mysql_user';
+
     protected $table = 'users';
+
     protected $primaryKey = 'id';
+
     protected $guarded = [];
 
     /**
@@ -69,6 +78,8 @@ class User extends Authenticate implements MustVerifyEmail, Explored
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'latest_login' => 'datetime',
+        'latest_active_at' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -84,7 +95,7 @@ class User extends Authenticate implements MustVerifyEmail, Explored
 
     public function emailVerifyOTPs(): HasMany
     {
-        return $this->hasMany(EmailVerifyOTO::class);
+        return $this->hasMany(EmailVerifyOTP::class);
     }
 
     public function blockUserLoginTemporary(): HasMany

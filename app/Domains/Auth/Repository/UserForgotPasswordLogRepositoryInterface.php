@@ -2,9 +2,9 @@
 
 namespace App\Domains\Auth\Repository;
 
-use App\Domains\Auth\DTOs\SaveUserForgotPasswordLogDTO;
+use App\Domains\Auth\Entities\User\UserForgotPasswordLog;
 
 interface UserForgotPasswordLogRepositoryInterface
 {
-    public function save(SaveUserForgotPasswordLogDTO $saveUserForgotPasswordLog): void;
+    public function save(UserForgotPasswordLog $forgotPasswordLog): void;
 }

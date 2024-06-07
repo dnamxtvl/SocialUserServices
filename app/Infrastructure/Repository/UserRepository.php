@@ -2,15 +2,24 @@
 
 namespace App\Infrastructure\Repository;
 
-use App\Infrastructure\Pipelines\User\EmailFilter;
-use App\Domains\User\DTOs\RegisterUserParamsDTO;
+use App\Domains\Auth\Entities\User\User as UserDomain;
+use App\Domains\Auth\ValueObjects\Email;
+use App\Domains\Auth\ValueObjects\Residence;
+use App\Domains\Auth\ValueObjects\StatusActive;
+use App\Domains\Auth\ValueObjects\Worker;
+use App\Domains\User\Enums\TypeAccountEnum;
+use App\Domains\User\Enums\UserExceptionEnum;
+use App\Domains\User\Enums\UserGenderEnums;
+use App\Domains\User\Enums\UserStatusActiveUnum;
 use App\Domains\User\Enums\UserStatusEnum;
+use App\Domains\User\Exceptions\UserNotFoundException;
 use App\Domains\User\Repository\UserRepositoryInterface;
 use App\Infrastructure\Models\User;
+use App\Infrastructure\Pipelines\User\EmailFilter;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Facades\Hash;
 
 readonly class UserRepository implements UserRepositoryInterface
 {
@@ -34,36 +43,86 @@ readonly class UserRepository implements UserRepositoryInterface
             ->thenReturn();
     }
 
-    public function findById(string $userId): ?Model
+    public function findById(string $userId): ?UserDomain
     {
-        return $this->user->query()->find(id: $userId);
+        $user = $this->user->query()->find(id: $userId);
+
+        /** @var ?User $user */
+        return is_null($user) ? null : $this->mappingUserEloquentToDomain(user: $user);
     }
 
-    public function save(RegisterUserParamsDTO $registerUserParams): Model
+    public function save(UserDomain $userDomain): UserDomain
     {
-        $user = new User();
+        if (is_null($userDomain->getId())) {
+            $user = new User();
+        } else {
+            $user = $this->user->query()->find(id: $userDomain->getId());
+            if (is_null($user)) {
+                throw new UserNotFoundException(code: UserExceptionEnum::USER_NOT_FOUND_WHEN_UPDATE_IN_REPO->value);
+            }
+        }
 
-        $user->first_name = $registerUserParams->getFirstname();
-        $user->last_name = $registerUserParams->getLastname();
-        $user->email = $registerUserParams->getEmail();
-        $user->user_code = User::query()->max('user_code') + 1;
-        $user->password = Hash::make($registerUserParams->getPassword());
-        $user->day_of_birth = $registerUserParams->getDayOfBirth();
-        $user->month_of_birth = $registerUserParams->getMonthOfBirth();
-        $user->year_of_birth = $registerUserParams->getYearOfBirth();
-        $user->gender = $registerUserParams->getGender()->value;
-        $user->status = UserStatusEnum::NOT_VERIFIED->value;
-        $user->from_city_id = $registerUserParams->getFromCityId();
-        $user->from_district_id = $registerUserParams->getFromDistrictId();
-        $user->from_ward_id = $registerUserParams->getFromWardId();
-        $user->current_city_id = $registerUserParams->getCurrentCityId();
-        $user->current_district_id = $registerUserParams->getCurrentDistrictId();
-        $user->current_ward_id = $registerUserParams->getCurrentWardId();
-        $user->type_account = $registerUserParams->getTypeAccount()->value;
-        $user->organization_id = $registerUserParams->getOrganizationId();
-        $user->unit_room_id = $registerUserParams->getUnitRoomId();
+        $user->fill(attributes: $userDomain->toArray());
         $user->save();
 
-        return $user;
+        return $userDomain;
+    }
+
+    public function getMaxUserCode(): int
+    {
+        return (int) $this->user->query()->max('user_code');
+    }
+
+    public function findByEmail(string $email): ?UserDomain
+    {
+        $user = $this->user->query()->where('email', $email)->first();
+
+        /** @var ?User $user */
+        return is_null($user) ? null : $this->mappingUserEloquentToDomain(user: $user);
+    }
+
+    public function findByIdEloquent(UserDomain $userDomain): ?Model
+    {
+        return new User($userDomain->toArray());
+    }
+
+    private function mappingUserEloquentToDomain(User $user): UserDomain
+    {
+        return new UserDomain(
+            identityId: $user->identity_id,
+            userCode: $user->user_code,
+            firstName: $user->first_name,
+            lastName: $user->last_name,
+            email: new Email($user->email),
+            typeAccount: TypeAccountEnum::tryFrom($user->type_account),
+            gender: UserGenderEnums::tryFrom($user->gender),
+            status: UserStatusEnum::tryFrom($user->status),
+            birthday: Carbon::createFromDate(year: $user->year_of_birth, month: $user->month_of_birth, day: $user->day_of_birth),
+            placeOfBirth: new Residence(
+                cityId: $user->from_city_id,
+                districtId: $user->from_district_id,
+                wardId: $user->from_ward_id
+            ),
+            statusActive: new StatusActive(
+                isActive: $user->status_active === UserStatusActiveUnum::ONLINE->value,
+                latestLogin: $user->latest_login,
+                latestIpLogin: $user->latest_ip_login, latestActiveAt: $user->latest_active_at
+            ),
+            job: new Worker(
+                organizationId: $user->organization_id,
+                unitRoomId: $user->unit_room_id,
+                positionId: $user->position_id,
+                jobId: $user->job_id
+            ),
+            password: $user->password,
+            id: $user->id,
+            emailVerifiedAt: $user->email_verified_at,
+            currentResidence: new Residence(
+                cityId: $user->current_city_id,
+                districtId: $user->current_district_id,
+                wardId: $user->current_ward_id
+            ),
+            createdAt: $user->created_at
+        );
     }
 }

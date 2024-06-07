@@ -1,19 +1,25 @@
 <?php
 
-namespace App\Domains\Auth\DTOs;
+namespace App\Domains\Auth\Entities\User;
 
 use App\Domains\Auth\Enums\TypeForgotPasswordLogEnum;
 
-class SaveUserForgotPasswordLogDTO
+readonly class UserForgotPasswordLog
 {
     public function __construct(
-        private readonly string $userId,
-        private readonly string $ip,
-        private readonly string $device,
-        private readonly TypeForgotPasswordLogEnum $type,
-        private readonly ?string $longitude = null,
-        private readonly ?string $latitude = null,
+        private string $userId,
+        private string $ip,
+        private string $device,
+        private TypeForgotPasswordLogEnum $type,
+        private ?string $longitude = null,
+        private ?string $latitude = null,
+        private ?string $id = null,
     ) {
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     public function getUserId(): string

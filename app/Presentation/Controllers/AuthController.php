@@ -2,11 +2,6 @@
 
 namespace App\Presentation\Controllers;
 
-use App\Domains\Auth\DTOs\UserDeviceInformationDTO;
-use App\Domains\User\DTOs\RegisterUserParamsDTO;
-use App\Domains\User\Enums\TypeAccountEnum;
-use App\Domains\User\Enums\UserGenderEnums;
-use App\Presentation\DTOs\LoginParamsDTO;
 use App\Application\UseCases\ForgotPasswordUseCase;
 use App\Application\UseCases\LoginUseCase;
 use App\Application\UseCases\LogoutUseCase;
@@ -17,6 +12,11 @@ use App\Application\UseCases\SetNewPasswordAfterForgotUseCase;
 use App\Application\UseCases\VerifyOTPAfterLoginUseCase;
 use App\Application\UseCases\VerifyOTPAfterRegisterUseCase;
 use App\Application\UseCases\VerifyOTPForgotPasswordUseCase;
+use App\Domains\Auth\DTOs\UserDeviceInformationDTO;
+use App\Domains\User\DTOs\RegisterUserParamsDTO;
+use App\Domains\User\Enums\TypeAccountEnum;
+use App\Domains\User\Enums\UserGenderEnums;
+use App\Presentation\DTOs\LoginParamsDTO;
 use App\Presentation\Requests\ForgotPasswordRequest;
 use App\Presentation\Requests\LoginRequest;
 use App\Presentation\Requests\RegisterUserRequest;
@@ -56,7 +56,7 @@ class AuthController extends Controller
             dayOfBirth: $request->input('day_of_birth'),
             monthOfBirth: $request->input('month_of_birth'),
             yearOfBirth: $request->input('year_of_birth'),
-            gender: UserGenderEnums::from($request->input('gender')),
+            gender: UserGenderEnums::tryFrom($request->input('gender')),
             fromCityId: $request->input('from_city_id'),
             fromDistrictId: $request->input('from_district_id'),
             fromWardId: $request->input('from_ward_id'),
@@ -125,7 +125,7 @@ class AuthController extends Controller
         );
 
         return $this->dispatchSync(new SetNewPasswordAfterForgotUseCase(
-            otpId: $request->input('otp_id'),
+            userId: $request->input('user_id'),
             password: $request->input('password'),
             token: $request->input('token'),
             userDeviceInformation: $userDeviceInformation

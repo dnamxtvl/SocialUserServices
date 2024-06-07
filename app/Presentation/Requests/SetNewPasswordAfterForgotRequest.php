@@ -17,7 +17,7 @@ class SetNewPasswordAfterForgotRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'otp_id' => 'required|string|max:'.config('validation.max_length_uuid'),
+            'user_id' => 'required|string|max:'.config('validation.max_length_uuid'),
             'token' => 'required|string|max:'.config('validation.token.max_length'),
             'password' => 'required|string|min:'.config('validation.password.min_length').'|max:'.config('validation.password.max_length'),
         ];
@@ -26,9 +26,9 @@ class SetNewPasswordAfterForgotRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'otp_id.required' => 'Otp đang để trống',
-            'otp_id.string' => 'Otp phải là chuỗi',
-            'otp_id.max' => 'Otp không vượt quá '.config('validation.max_length_uuid').' ký tự',
+            'user_id.required' => 'UserId đang để trống',
+            'user_id.string' => 'UserId phải là chuỗi',
+            'user_id.max' => 'UserId không vượt quá '.config('validation.max_length_uuid').' ký tự',
             'token.required' => 'Token đang để trống',
             'token.string' => 'Token phải là chuỗi',
             'token.max' => 'Token không hợp lệ',

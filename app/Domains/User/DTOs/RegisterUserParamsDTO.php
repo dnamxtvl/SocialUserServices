@@ -25,7 +25,13 @@ readonly class RegisterUserParamsDTO
         private TypeAccountEnum $typeAccount,
         private int $organizationId,
         private int $unitRoomId,
+        private ?string $identityId = null,
     ) {
+    }
+
+    public function getIdentityId(): ?string
+    {
+        return $this->identityId;
     }
 
     public function getFirstname(): string

@@ -2,10 +2,10 @@
 
 namespace App\Domains\Auth\DTOs;
 
+use App\Domains\Auth\Entities\User\User;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
-class UserLoginResponseDataDTO
+readonly class UserLoginResponseDataDTO
 {
     /**
      * Create a new job instance.
@@ -13,13 +13,13 @@ class UserLoginResponseDataDTO
      * @return void
      */
     public function __construct(
-        private readonly ?Model $user,
-        private readonly string $token,
-        private readonly Carbon $expiresAt,
+        private ?User $user,
+        private string $token,
+        private Carbon $expiresAt,
     ) {
     }
 
-    public function getUser(): ?Model
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -27,7 +27,7 @@ class UserLoginResponseDataDTO
     public function toArray(): array
     {
         return [
-            'user' => $this->user,
+            'user' => $this->user->toArray(),
             'token' => $this->token,
             'expires_at' => $this->expiresAt->toDateTimeString(),
         ];

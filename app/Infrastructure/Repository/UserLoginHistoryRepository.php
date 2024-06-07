@@ -2,19 +2,19 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Domains\Auth\Entities\User\UserLoginHistory as UserLoginHistoryDomain;
+use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
+use App\Infrastructure\Models\UserLoginHistory;
+use App\Infrastructure\Pipelines\Global\IpFilter;
 use App\Infrastructure\Pipelines\Global\TypeFilter;
 use App\Infrastructure\Pipelines\Global\UserIdFilter;
-use App\Domains\Auth\DTOs\SaveUserLoginHistoryDTO;
-use App\Domains\Auth\Repository\UserLoginHistoryRepositoryInterface;
-use App\Infrastructure\Models\User;
-use App\Infrastructure\Models\UserLoginHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
 
-class UserLoginHistoryRepository implements UserLoginHistoryRepositoryInterface
+readonly class UserLoginHistoryRepository implements UserLoginHistoryRepositoryInterface
 {
     public function __construct(
-        private readonly UserLoginHistory $userLoginHistory
+        private UserLoginHistory $userLoginHistory
     ) {
     }
 
@@ -30,22 +30,19 @@ class UserLoginHistoryRepository implements UserLoginHistoryRepositoryInterface
             ->through([
                 new UserIdFilter(filters: $filters),
                 new TypeFilter(filters: $filters),
+                new IpFilter(filters: $filters),
             ])
             ->thenReturn();
     }
 
-    public function save(SaveUserLoginHistoryDTO $saveUserLoginHistoryDTO): void
+    public function save(UserLoginHistoryDomain $userLoginHistoryDomain): void
     {
         $userLoginHistory = new UserLoginHistory();
 
-        $user = $saveUserLoginHistoryDTO->getUser();
-        /**
-         * @var User $user
-         **/
-        $userLoginHistory->ip = $saveUserLoginHistoryDTO->getIp();
-        $userLoginHistory->user_id = $user->id;
-        $userLoginHistory->device = $saveUserLoginHistoryDTO->getDevice();
-        $userLoginHistory->type = $saveUserLoginHistoryDTO->getType()->value;
+        $userLoginHistory->ip = $userLoginHistoryDomain->getIp();
+        $userLoginHistory->user_id = $userLoginHistoryDomain->getUserId();
+        $userLoginHistory->device = $userLoginHistoryDomain->getDevice();
+        $userLoginHistory->type = $userLoginHistoryDomain->getType()->value;
         $userLoginHistory->save();
     }
 }

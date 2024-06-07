@@ -4,10 +4,10 @@ namespace App\Infrastructure\Pipelines\Global;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class UserIdFilter
+readonly class UserIdFilter
 {
     public function __construct(
-        private readonly array $filters,
+        private array $filters,
     ) {
     }
 

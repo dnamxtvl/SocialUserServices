@@ -2,10 +2,11 @@
 
 namespace App\Application\Providers;
 
-use App\Domains\Auth\Events\RegistedUserEvent;
-use App\Domains\Auth\Listeners\SendEmailVerifyNotification;
+use App\Events\EmailNotVerifyEvent;
+use App\Events\ForgotPasswordEvent;
+use App\Events\RegistedUserEvent;
+use App\Listeners\SendEmailVerifyOTPNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,13 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         RegistedUserEvent::class => [
-            SendEmailVerifyNotification::class,
+            SendEmailVerifyOTPNotification::class,
+        ],
+        EmailNotVerifyEvent::class => [
+            SendEmailVerifyOTPNotification::class,
+        ],
+        ForgotPasswordEvent::class => [
+            SendEmailVerifyOTPNotification::class,
         ],
     ];
 

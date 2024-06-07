@@ -11,7 +11,9 @@ class Ward extends Model
     use HasFactory;
 
     protected $connection = 'mysql_user';
+
     protected $table = 'wards';
+
     protected $primaryKey = 'id';
 
     public function district(): belongsTo
