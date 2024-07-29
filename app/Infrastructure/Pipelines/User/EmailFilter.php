@@ -4,10 +4,10 @@ namespace App\Infrastructure\Pipelines\User;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class EmailFilter
+readonly class EmailFilter
 {
     public function __construct(
-        private readonly array $filters,
+        private array $filters,
     ) {
     }
 

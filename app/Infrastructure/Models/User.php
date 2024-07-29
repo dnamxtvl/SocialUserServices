@@ -12,10 +12,6 @@ use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Passport\HasApiTokens;
-use Laravel\Scout\Attributes\SearchUsingFullText;
-use Laravel\Scout\Attributes\SearchUsingPrefix;
-use Laravel\Scout\Searchable;
-use JeroenG\Explorer\Application\Explored;
 
 /**
  * @property mixed|string $last_name
@@ -49,7 +45,7 @@ use JeroenG\Explorer\Application\Explored;
  * @property mixed $position_id
  * @property mixed $job_id
  */
-class User extends Authenticate implements MustVerifyEmail, Explored
+class User extends Authenticate implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes;
 
