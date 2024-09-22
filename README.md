@@ -23,18 +23,5 @@
   - Caching: Redis
   - Database: Mysql và Mongodb
   - Cache: Redis
-  - Các packages: Laravel passport,Laravel horizon,Laravel stevebauman/location,Laravel Predis,Laravel telescope(only local)...
-  - Cấu trúc của 1 domain:
-    ![image](https://github.com/dnamxtvl/SocialUserServices/assets/61748711/cf44b905-9f6e-4aac-b2ff-19727e5648d1)
-
-    + Trong repository chứa các repository interface
-
-
-
-  - Cấu trúc của data layer:
-    ![image](https://github.com/dnamxtvl/SocialUserServices/assets/61748711/025a10b3-6897-4e21-800b-c8f8a94ae4ab)
-
-    + Trong repository chứa các repository implement từ repository interface ở tầng domain
-
 
     
