@@ -11,37 +11,36 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql_user')->create('schools', function (Blueprint $table) {
+        Schema::connection('mysql_user')->create('organizations', function (Blueprint $table) {
             $table->id()->startingValue(10000);
             $table->string('name')->index();
             $table->string('slug')->index();
             $table->char('tax_code', config('organization.tax_code_length'))->unique();
             $table->string('address');
             $table->string('link_website')->nullable();
-            $table->integer('count_person_from')->nullable();
-            $table->integer('count_person_to');
-            $table->integer('district_id');
             $table->integer('city_id')->index();
+            $table->integer('district_id');
             $table->integer('ward_id');
-            $table->char('hotline_phone', config('organization.hr_phone_length'))->index();
             $table->timestamp('founding_date')->nullable();
             $table->tinyInteger('type')->index();
             $table->string('background_image')->nullable();
             $table->string('avatar')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->integer('organizationable_id')->index();
+            $table->string('organizationable_type');
             $table->index(['city_id', 'district_id']);
             $table->index(['city_id', 'district_id', 'ward_id']);
             $table->index(['city_id', 'type', 'is_active']);
+            $table->index(['organizationable_id', 'organizationable_type']);
             $table->timestamps();
             $table->softDeletes();
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('schools');
+        Schema::dropIfExists('organizations');
     }
 };

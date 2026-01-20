@@ -4,10 +4,10 @@ namespace App\Infrastructure\Pipelines\EmailVerifyOTP;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class VerifyCodeOTPFilter
+readonly class VerifyCodeOTPFilter
 {
     public function __construct(
-        private readonly array $filters,
+        private array $filters,
     ) {
     }
 

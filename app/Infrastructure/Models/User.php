@@ -98,4 +98,14 @@ class User extends Authenticate implements MustVerifyEmail
     {
         return $this->hasMany(BlockUserLoginTemporary::class);
     }
+
+    public function mappableAs(): array
+    {
+        return [
+            'id' => 'keyword',
+            'first_name' => 'text',
+            'last_name' => 'text',
+            'email' => 'text',
+        ];
+    }
 }

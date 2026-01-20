@@ -18,4 +18,6 @@ return [
     ],
     'tax_code_length' => 10,
     'identity_id_length' => 12,
+    'user_code_length' => 13,
+    'phone_number_length' => 20,
 ];

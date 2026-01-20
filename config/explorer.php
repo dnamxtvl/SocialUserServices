@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Infrastructure\Models\User;
+
 return [
     /*
      * There are different options for the connection. Since Explorer uses the Elasticsearch PHP SDK
@@ -9,7 +11,7 @@ return [
      * https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/configuration.html
      */
     'connection' => [
-        'host' => 'localhost',
+        'host' => '10.1.45.48',
         'port' => '9200',
         'scheme' => 'http',
     ],
@@ -29,7 +31,7 @@ return [
      * of the mapping possibilities can be found in the documentation of Explorer's repository.
      */
     'indexes' => [
-        // \App\Models\Post::class
+        User::class
     ],
 
     /**
